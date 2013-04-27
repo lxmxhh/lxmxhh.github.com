@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[SamXu's blog]]></title>
-  <link href="http://lxmxhh.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 精益 | SamXu's blog]]></title>
+  <link href="http://lxmxhh.github.io/blog/categories/jing-yi/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
   <updated>2013-04-27T15:31:58+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
@@ -21,24 +21,11 @@
     <content type="html"><![CDATA[<p><img class="right" src="http://placekitten.com/180/240">
 知名科幻小说家Cory Doctorow曾说：“铁匠在啤酒中洒下眼泪，悲叹自己没有办法在铁路时代卖马掌，但这并不会使他们的马掌更受欢迎。那些学习变成机械师的铁匠才会保住自己的饭碗。”</p>
 
-<p>企业也好，团队也好，唯有快速顺应时代才能赢得未来，产品生产方式必须因时代而变。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo teach me lean startup lessons
-</span><span class='line'>$sudo show me the money</span></code></pre></td></tr></table></div></figure>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World!]]></title>
-    <link href="http://lxmxhh.github.io/blog/2013/04/26/hello-world/"/>
-    <updated>2013-04-26T23:47:00+08:00</updated>
-    <id>http://lxmxhh.github.io/blog/2013/04/26/hello-world</id>
-    <content type="html"><![CDATA[<p><img src="http://placekitten.com/890/280"></p>
+<p>企业也好，团队也好，唯有快速顺应时代才能赢得未来，产品生产方式必须因时代而变。
+<code>
+$sudo teach me lean startup lessons
+$sudo show me the money
+</code></p>
 ]]></content>
   </entry>
   
