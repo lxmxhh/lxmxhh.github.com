@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[SamXu's blog]]></title>
-  <link href="http://lxmxhh.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 算法 | SamXu's blog]]></title>
+  <link href="http://lxmxhh.github.io/blog/categories/suan-fa/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
   <updated>2013-04-29T23:05:49+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
@@ -89,87 +89,6 @@
     <tr><td>堆</td><td>O(nlogn)</td><td>O(nlogn)</td><td>不稳定</td><td>O(1)</td><td>n大时较好</td></tr>
 </table>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[项目管理的ONP原则]]></title>
-    <link href="http://lxmxhh.github.io/blog/2013/04/28/opn-principle/"/>
-    <updated>2013-04-28T23:01:00+08:00</updated>
-    <id>http://lxmxhh.github.io/blog/2013/04/28/opn-principle</id>
-    <content type="html"><![CDATA[<p><img class="right" src="http://placekitten.com/240/320"></p>
-
-<p>前阵子学到了一招，项目管理中关于预估的ONP原则。</p>
-
-
-<p>顾名思义，O乐观估计，N普通估计，P悲观估计。</p>
-
-
-<!--more-->
-
-
-<p>当有一个新需求产生的时候，产品经理大表哥总是会问，“这个需要多长时间啊，最快什么时候能好？应该很简单的吧” 。</p>
-
-
-<p>年轻气盛的小瘦就会回答了：“嗯，这个简单。两天帮你搞定。包在我身上。” 大表哥听了很高兴。这叫乐观估计。</p>
-
-
-<p>曾吃过亏的老龚就会说：“这项工作我来做的话，需要4天完成。但考虑到各种不确定因素，保守估计8天吧。你的需求有哪次不是变来变去的？”大表哥羞愧的低下了头。这叫悲观估计。</p>
-
-
-<p>见过世面的大师掐指一算：“老衲觉得需要4.3天，就算是5天吧。但也可能需要6天或者7天。” “大师，此话怎讲。说了等于白说。”</p>
-
-
-<p>大师继续说：“其实佛祖托梦，给了我一个计算公式。套用即可。” “大师，您也太能忽悠了。”</p>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>μ = (O+4N+P)/6           #平均值 
-</span><span class='line'>σ = (P-O)/6              #标准差
-</span><span class='line'>U = μ or μ+1σ or μ+2σ    #估算值</span></code></pre></td></tr></table></div></figure>
-
-
-<p>工作量预估实际上是一个概率分布问题。就拿刚才的例子来说，这个工作项有10%的可能性在2天内完成，15%的可能性在3天内完成，30%的可能性在4天内完成，25%的可能性在5天内完成，在6、7、8天内完成的可能性分别是10%、6%和3%。在1天以内或者9天以上完成的可能性基本为0。</p>
-
-
-<p>当然，上述分布的情况比较理想化，只是用来举例。每次项目要如此进行概率估算，并且计算平均值和标准差，还是比较复杂的。为了简化计算，前人总结出了以上公式。</p>
-
-
-
-
-<p>各位今后在进行工作量预估的时候不妨也这么试一下。先确定好合理的ONP，再套用公式。顺便把这套算法讲给产品经理听，做一个守信的专业程序员。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[唯一不变的只有变化]]></title>
-    <link href="http://lxmxhh.github.io/blog/2013/04/27/wei-yi-bu-bian-de-zhi-you-bian-hua/"/>
-    <updated>2013-04-27T09:09:00+08:00</updated>
-    <id>http://lxmxhh.github.io/blog/2013/04/27/wei-yi-bu-bian-de-zhi-you-bian-hua</id>
-    <content type="html"><![CDATA[<p><img class="right" src="http://placekitten.com/180/240">
-知名科幻小说家Cory Doctorow曾说：“铁匠在啤酒中洒下眼泪，悲叹自己没有办法在铁路时代卖马掌，但这并不会使他们的马掌更受欢迎。那些学习变成机械师的铁匠才会保住自己的饭碗。”</p>
-
-<p>企业也好，团队也好，唯有快速顺应时代才能赢得未来，产品生产方式必须因时代而变。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sudo teach me lean startup lessons
-</span><span class='line'>$sudo show me the money</span></code></pre></td></tr></table></div></figure>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World!]]></title>
-    <link href="http://lxmxhh.github.io/blog/2013/04/26/hello-world/"/>
-    <updated>2013-04-26T23:47:00+08:00</updated>
-    <id>http://lxmxhh.github.io/blog/2013/04/26/hello-world</id>
-    <content type="html"><![CDATA[<p><img src="http://placekitten.com/890/280"></p>
 ]]></content>
   </entry>
   
