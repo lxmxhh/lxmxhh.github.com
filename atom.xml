@@ -4,7 +4,7 @@
   <title><![CDATA[SamXu's blog]]></title>
   <link href="http://lxmxhh.github.io/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
-  <updated>2013-04-29T23:05:49+08:00</updated>
+  <updated>2013-04-30T13:13:43+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
   <author>
     <name><![CDATA[Sam Xu]]></name>
@@ -18,18 +18,24 @@
     <link href="http://lxmxhh.github.io/blog/2013/04/29/sorting-algorithms/"/>
     <updated>2013-04-29T22:41:00+08:00</updated>
     <id>http://lxmxhh.github.io/blog/2013/04/29/sorting-algorithms</id>
-    <content type="html"><![CDATA[<p>今天来比较一下众多排序算法。</p>
+    <content type="html"><![CDATA[<p><img src="http://placekitten.com/640/320"></p>
+
+<p>今天来比较一下众多排序算法。</p>
 
 <p>1 快速排序（QuickSort）</p>
 
 <p>快速排序是一个就地排序，分而治之，大规模递归的算法。从本质上来说，它是归并排序的就地版本。快速排序可以由下面四步组成。</p>
 
-<p>（1） 如果不多于1个数据，直接返回。
-（2） 一般选择序列最左边的值作为支点数据。
-（3） 将序列分成2部分，一部分都大于支点数据，另外一部分都小于支点数据。
-（4） 对两边利用递归排序数列。</p>
+<pre><code>1. 如果不多于1个数据，直接返回。
+2. 一般选择序列最左边的值作为支点数据。
+3. 将序列分成2部分，一部分都大于支点数据，另外一部分都小于支点数据。
+4. 对两边利用递归排序数列。
+</code></pre>
 
 <p>快速排序比大部分排序算法都要快O(nlogn)。尽管我们可以在某些特殊的情况下写出比快速排序快的算法，但是就通常情况而言，没有比它更快的了。快速排序是递归的，对于内存非常有限的机器来说，它不是一个好的选择。</p>
+
+<!--more-->
+
 
 <p>2 归并排序（MergeSort）</p>
 
@@ -69,21 +75,21 @@
 
 <p>下面是一个总的表格，大致总结了我们常见的所有的排序算法的特点。</p>
 
-<table border="1">
+<table class="table table-bordered table-striped table-condensed">
     <tr>
-        <td>排序法</td>
-        <td>平均时间</td>
-        <td>最差情形</td>
-        <td>是否稳定</td>
-        <td>额外空间</td>
-        <td>备注</td>
+        <th width="10%">排序法</th>
+        <th width="15%">平均时间</th>
+        <th width="20%">最差情形</th>
+        <th width="15%">是否稳定</th>
+        <th width="15%">额外空间</th>
+        <th width="25%">备注</th>
     </tr>
     <tr><td>冒泡</td><td>O(n^2)</td><td>O(n^2)</td><td>稳定</td><td>O(1)</td><td>n小时较好</td></tr>
     <tr><td>交换</td><td>O(n^2)</td><td>O(n^2)</td><td>不稳定</td><td>O(1)</td><td>n小时较好</td></tr>
     <tr><td>选择</td><td>O(n^2)</td><td>O(n^2)</td><td>不稳定</td><td>O(1)</td><td>n小时较好</td></tr>
     <tr><td>插入</td><td>O(n^2)</td><td>O(n^2)</td><td>稳定</td><td>O(1)</td><td>大部分已排序时较好</td></tr>
     <tr><td>基数</td><td>O(logRB)</td><td>O(logRB)</td><td>稳定</td><td>O(n)</td><td>B是真数(0-9)，R是基数(个十百)</td></tr>
-    <tr><td>Shell</td><td>O(nlogn)</td><td>O(n^s) 1< s < 2</td><td> 不稳定</td><td>O(1)</td><td>s是所选分组</td></tr>
+    <tr><td>Shell</td><td>O(nlogn)</td><td>O(n^s) 1&lt;s&lt;2</td><td> 不稳定</td><td>O(1)</td><td>s是所选分组</td></tr>
     <tr><td>快速</td><td>O(nlogn)</td><td>O(n^2)</td><td>不稳定</td><td>O(nlogn)</td><td>n大时较好</td></tr>
     <tr><td>归并</td><td>O(nlogn)</td><td>O(nlogn)</td><td>稳定</td><td>O(1)</td><td>n大时较好</td></tr>
     <tr><td>堆</td><td>O(nlogn)</td><td>O(nlogn)</td><td>不稳定</td><td>O(1)</td><td>n大时较好</td></tr>
