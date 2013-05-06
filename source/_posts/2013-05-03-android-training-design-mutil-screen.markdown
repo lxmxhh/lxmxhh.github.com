@@ -3,7 +3,7 @@ layout: post
 title: "android training lesson 1 - Designing for Multiple Screens"
 date: 2013-05-03 19:59
 comments: true
-categories: 
+categories: android
 ---
 
 Supporting Different Screen Sizes
