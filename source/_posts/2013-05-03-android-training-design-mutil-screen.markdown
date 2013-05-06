@@ -60,7 +60,7 @@ Notice how the sample uses `"wrap_content"` and `"match_parent"` for component s
 
 For example, this is what this layout looks like in portrait and landscape mode. Notice that the sizes of the components adapt automatically to the width and height:
 
-<% img /images/blogs/130503/layout-hvga.png %>
+{% img /images/blogs/130503/layout-hvga.png %}  
 Figure 1. The News Reader sample app in portrait (left) and landscape (right).
 
 Use RelativeLayout
@@ -101,12 +101,12 @@ For example:
 ```
 Figure 2 shows how this layout appears on a QVGA screen.
 
-<% img /images/blogs/130503/relativelayout1.png %>
+{% img /images/blogs/130503/relativelayout1.png %}  
 Figure 2. Screenshot on a QVGA screen (small screen).
 
 Figure 3 shows how it appears on a larger screen.
 
-<% img /images/blogs/130503/relativelayout2.png %>
+{% img /images/blogs/130503/relativelayout2.png %}  
 Figure 3. Screenshot on a WSVGA screen (large screen).
 
 Notice that although the size of the components changed, their spatial relationships are preserved as specified by the `RelativeLayout.LayoutParams`.
@@ -360,12 +360,12 @@ If you use simple images on components that can change size, you will quickly no
 
 Therefore, when designing bitmaps that will be used on components with variable size, always use nine-patches. To convert a bitmap into a nine-patch, you can start with a regular image (figure 4, shown with in 4x zoom for clarity).
 
-<% img /images/blogs/130503/button.png %>
+{% img /images/blogs/130503/button.png %}  
 Figure 4. button.png
 
 And then run it through the `draw9patch` utility of the SDK (which is located in the `tools/` directory), in which you can mark the areas that should be stretched by drawing pixels along the left and top borders. You can also mark the area that should hold the content by drawing pixels along the right and bottom borders, resulting in figure 5.
 
-<% img /images/blogs/130503/button_with_marks.png %>
+{% img /images/blogs/130503/button_with_marks.png %}  
 Figure 5. button.9.png
 
 Notice the black pixels along the borders. The ones on the top and left borders indicate the places where the image can be stretched, and the ones on the right and bottom borders indicate where the content should be placed.
@@ -374,5 +374,5 @@ Also, notice the `.9.png` extension. You must use this extension, since this is 
 
 When you apply this background to a component (by setting `android:background="@drawable/button"`), the framework stretches the image correctly to accommodate the size of the button, as shown in various sizes in figure 6.
 
-<% img /images/blogs/130503/buttons_stretched.png %>
+{% img /images/blogs/130503/buttons_stretched.png %}  
 Figure 6. A button using the button.9.png nine-patch in various sizes.
