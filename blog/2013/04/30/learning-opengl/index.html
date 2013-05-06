@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GL从头学（一） - SamXu's blog</title>
+  <meta name="author" content="Sam Xu">
+
+  
+  <meta name="description" content="进入游戏行业已经8年了，虽然一直从事的图形图像相关的开发，接触的一直都是微软的DX，从未有闲暇去了解一下鼻祖OpenGL。之前的红宝书也不知道哪里去了，最近发现再版，立马入手了。
+亚马逊链接： OpenGL编程指南 OpenGL 数据类型 首先我们要讨论的是OpenGL的数据类型。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lxmxhh.github.io/blog/2013/04/30/learning-opengl">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="SamXu's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <img style="float:right; " src="/images/head.png">
+  <h1><a href="/">SamXu's blog</a></h1>
+  
+    <h2>A blog for programmers like me.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lxmxhh.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">GL从头学（一）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-30T22:42:00+08:00" pubdate data-updated="true">Apr 30<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>进入游戏行业已经8年了，虽然一直从事的图形图像相关的开发，接触的一直都是微软的DX，从未有闲暇去了解一下鼻祖OpenGL。之前的红宝书也不知道哪里去了，最近发现再版，立马入手了。
+亚马逊链接： <a href="http://www.amazon.cn/gp/aw/d/B003D7LWI6/ref=mp_s_a_1?qid=1367829548&amp;sr=8-1&amp;pi=SL75">OpenGL编程指南</a></p>
+
+<!--more-->
+
+
+<h2>OpenGL 数据类型</h2>
+
+<p>首先我们要讨论的是OpenGL的数据类型。因为OpenGL是一个跨平台的API，数据类型的大小会随使用的编程语言以及处理器（64位，32位，16位）等的不同而不同，所以OpenGL定义了自己的数据类型。当传递数据到OpenGL时，你应该坚持使用这些OpenGL的数据类型，从而保证传递数据的尺寸和精度正确。不这样做的后果是可能会导致无法预料的结果或由于运行时的数据转换造成效率低下。不论平台或语言实现的OpenGL都采用这种方式定义数据类型以保证在各平台上数据的尺寸一致，并使平台间OpenGL代码移植更为容易。
+下面是OpenGL的各种数据类型:</p>
+
+<ul>
+<li> GLenum: 用于GL枚举的无符号整型。通常用于通知OpenGL由指针传递的存储于数组中数据的类型（例如，GL_FLOAT用于指示数组由GLfloat组成）。</li>
+<li> GLboolean: 用于单布尔值。OpenGL ES还定义了其自己的“真”和“假”值（GL_TRUE和GL_FALSE）以避免平台和语言的差别。当向OpenGL传递布尔值时，请使用这些值而不是使用YES或NO（尽管由于它们的定义实际没有区别，即使你不小心使用了YES或NO。但是，使用GL-定义值是一个好的习惯。）</li>
+<li> GLbitfield: 用于将多个布尔值（最多32个）打包到单个使用位操作变量的四字节整型。我们将在第一次使用位域变量时详细介绍，请参阅 wikipedia</li>
+<li> GLbyte: 有符号单字节整型，包含数值从-128 到 127</li>
+<li> GLshort: 有符号双字节整型，包含数值从−32,768 到 32,767</li>
+<li> GLint: 有符号四字节整型，包含数值从−2,147,483,648 到 2,147,483,647</li>
+<li> GLsizei: 有符号四字节整型，用于代表数据的尺寸（字节），类似于C中的size_t</li>
+<li> GLubyte: 无符号单字节整型，包含数值从0 到 255。</li>
+<li> GLushort: 无符号双字节整型，包含数值从0 到 65,535</li>
+<li> GLuint: 无符号四字节整型，包含数值从0 到 4,294,967,295</li>
+<li> GLfloat: 四字节精度IEEE 754-1985 浮点数</li>
+<li> GLclampf: 这也是四字节精度浮点数，但OpenGL使用GLclampf特别表示数值为0.0 到 1.0</li>
+<li> GLvoid:void值用于指示一个函数没有返回值，或没有参数</li>
+<li> GLfixed: 定点数 使用整型数存储实数。由于大部分计算机处理器在处理整型数比处理浮点数快很多，这通常是对3D系统的优化方式。但因为iPhone具有用于浮点运算的矢量处理器，我们将不讨论定点运算或GLfixed数据类型。</li>
+<li> GLclampx: 另一种定点型，用于使用定点运算来表示0.0 到 1.0之间的实数。正如GLfixed，我们不会讨论或使用它。</li>
+</ul>
+
+
+<p>OpenGL ES （至少iPhone目前所使用的版本）不支持8字节（64位）数据类型，如long或double。OpenGL 其实具有这些大型数据类型，但考虑到大部分嵌入式设备屏幕尺寸以及可能为它们所写的程序类型而且使用它们有可能对性能造成不利的影响，最后的决定是在OpenGL ES中排除这些数据类型。</p>
+
+<h2>点或顶点</h2>
+
+<p>3D图像的最小单位称为 点（point）或者顶点vertex。它们代表三维空间中的一个点并用来建造更复杂的物体。多边形就是由点构成，而物体是由多个多边形组成。尽管通常OpenGL支持多种多边形，但OpenGL ES只支持三边形（即三角形）。
+如果你回忆高中学过的几何学，你可能会记得所谓笛卡尔坐标。 基本概念是在空间中任选一点，称作原点。 然后你可以通过参照原点并使用三个代表三维的数值指定空间中的任意一点，坐标是由三个想象的通过原点线表示的。从左至右的想象直线叫x-轴。沿着x-轴从左至右数值变大，向左移动数值变小。原点左方x为负值，右边为正值。另外两轴同理。沿y轴向上，y值增加，向下y值减小。原点上方y为正，原点下方为负。对于z轴，当物体离开观察者，数值变小，向观察者移动（或超出观察者），数值变大。原点前方z值为正，原点之后为负。下图帮助说明了这一点：</p>
+
+<p><img src="/images/blogs/130430/gl1.png"><br/>
+Note: iPhone上另一种绘图框架Core Graphics使用了稍微不同的坐标系统，当向屏幕上方移动时y值减小，而向下移动y值增加。</p>
+
+<p>沿各轴增加或减小的数值是以任意刻度进行的 – 它们不代表任何真实单位，如英尺，英寸或米等。你可以选择任何对你的程序有意义的刻度。如果你想设计的游戏以英尺为单位，你可以那样做。如果你希望单位为毫米，同样可行。OpenGL不管它对最终用户代表什么，只是将它作为单位处理，保证它们具有相同的距离。
+由于任何物体在三维空间中的方位可以由三个数值表示，物体的位置通常在OpenGL中由使用一个三维数组的三个GLfloat变量表示，数组中的第一项（索引0）为x位置，第二项（索引1）为y位置，第三项（索引2）为z位置。下面是一个创建OpenGL ES顶点的简单例子：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>GLfloat vertex[3];
+</span><span class='line'>vertex[0] = 10.0;       // x
+</span><span class='line'>vertex[1] = 23.75;      // y    
+</span><span class='line'>vertex[2] = -12.532;    // z</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在OpenGL ES中，通常将场景中所有构成所有或部分物体的提交为顶点数组。一个顶点数组是包括场景中部分或所有顶点数据的简单数组。我将在系列的下一篇教程中讨论，有关顶点数组要记住的是它们的大小是基于呈现的顶点数乘以三（三维空间绘图）或二（二维空间绘图）。所以一个包含六个三维空间中的三角形的顶点数组由54个GLfloat组成，因为每个三角形有三个顶点，而每个顶点有三个坐标，即6 x 3 x 3 = 54。
+处理所有这些GLfloat是很痛苦的事情。幸运的是，有一个容易的方法。我们可以定义一个数据结构了保存多个顶点，像这样：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>typedef struct { 
+</span><span class='line'>    GLfloat x;
+</span><span class='line'>    GLfloat y;
+</span><span class='line'>    GLfloat z;
+</span><span class='line'>} Vertex3D;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过这样做，我们的代码可读性更强：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Vertex3D vertex;
+</span><span class='line'>vertex.x = 10.0;
+</span><span class='line'>vertex.y = 23.75;
+</span><span class='line'>vertex.z = -12.532;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在由于Vertex3D由三个GLfloat组成，向Vertex3D传递指针与向数组传递一个包含三个GLfloat的数组的指针完全一样。对于电脑而言毫无分别；两者具有同样的尺寸和同样的字节数以及OpenGL需要的同样的顺序。将数据分组到数据结构只是让程序员感到更容易，处理起来更方便。如果你下载了文章开头处的Xcode模板，你会发现此数据结构以及我后面将讨论的各种函数都定义在文件OpenGLCommon.h中。还有一个内联函数用于创建单个顶点：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>static inline Vertex3D Vertex3DMake(CGFloat inX, CGFloat inY, CGFloat inZ)
+</span><span class='line'>{
+</span><span class='line'>    Vertex3D ret;
+</span><span class='line'>    ret.x = inX;
+</span><span class='line'>    ret.y = inY;
+</span><span class='line'>    ret.z = inZ;
+</span><span class='line'>    return ret;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你回忆起几何学（如果不记得也不要紧）的内容，你会知道空间中两点间的距离是使用下面公式计算的：<br/>
+<img class="center" src="/images/blogs/130430/gl2.png">
+我们可以在一个简单的内联函数中实现这个公式来计算三维空间中任何两点间的直线距离：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>static inline GLfloat Vertex3DCalculateDistanceBetweenVertices (Vertex3D first, Vertex3D second)
+</span><span class='line'>{
+</span><span class='line'>    GLfloat deltaX = second.x - first.x;
+</span><span class='line'>    GLfloat deltaY = second.y - first.y;
+</span><span class='line'>    GLfloat deltaZ = second.z - first.z;
+</span><span class='line'>    return sqrtf(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ );
+</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>三角形</h2>
+
+<p>由于OpenGL ES仅支持三角形，因此我们可以通过创建一个数据结构将三个顶点组合成一个三角形物体。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>typedef struct {
+</span><span class='line'>    Vertex3D v1;
+</span><span class='line'>    Vertex3D v2;
+</span><span class='line'>    Vertex3D v3;
+</span><span class='line'>} Triangle3D;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一个Triangle3D实际上与一个九个GLfloat构成的数组是完全一样的，因为我们通过顶点和三角形而不是GLfloat数组来构建物体，所以它能帮助我们更容易地处理我们的代码。
+然而关于三角形你需要知道更多的事情。在OpenGL中有一个概念叫卷绕(winding)， 它表示顶点绘制的次序是重要的。不像真实世界中的物体，OpenGL中的多边形通常都不会有两面。它们只有一面，被当做front face（前面）， 三角形只有其front face面对观察者时才可见。可以设置OpenGL将多边形作为两面处理，但默认状态下，三角形只有一个可见面。通过知道哪一个面是多边形的前面或可见面，才能使OpenGL只做一半的计算。
+尽管有时多边形也可以独立存在，需要绘制其背面，但通常三角形是一个大物体的一部分，其面对物体内部的一面永远也不可见。不被绘制的一面称为backface（背面），OpenGL是通过观察顶点的绘制次序来确定front face和backface的。以反时针次序绘制顶点的构成的面是frontface（默认，可以改变）。由于OpenGL可以很容易确定哪个三角形对用户可见，所以它使用了一种称为Backface Culling（隐面消除） 的技术来避免绘制视窗中多边形的不可见面。下一篇文章将讨论视窗，现在你可将其想象成一个虚拟摄像或观察OpenGL世界的虚拟窗口。<br/>
+<img src="/images/blogs/130430/gl3.png"><br/>
+上图中，左边青色的三角形是backface，因此将不可见。而右方的三角形是frontface，所以将被绘制。
+本系列的下一篇文章将设定一个OpenGL的虚拟世界并使用Vertex3D 和 Triangle3D进行一些基本绘图。再后，我们将讨论变换，它使用线性代数在虚拟世界中移动物体。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sam Xu</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-30T22:42:00+08:00" pubdate data-updated="true">Apr 30<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tu-xing-bian-cheng/'>图形编程</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/29/sorting-algorithms/" title="Previous Post: 排序算法比较">&laquo; 排序算法比较</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/03/android-training-design-mutil-screen/" title="Next Post: android training lesson 1 - Designing for Multiple Screens">android training lesson 1 - Designing for Multiple Screens &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+<!-- JiaThis Button BEGIN -->
+<section>
+  <p class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_tsina"></a>
+    <a class="jiathis_button_qzone"></a>
+    <a class="jiathis_button_tqq"></a>
+    <a class="jiathis_button_weixin"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+    <a class="jiathis_counter_style"></a>
+  </p>
+  <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1358821508856846" charset="utf-8"></script>
+</section>
+<!-- JiaThis Button END -->
+
+<!-- Duoshuo Comment BEGIN -->
+<section>
+  <div class="ds-thread"></div>
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lxmxhh"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+</section>
+<!-- Duoshuo Comment END -->　
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>徐鸿，80% Geek + 20% Gamer，从事移动互联网产品开发的程序猿，6年游戏开发经验，3年手机游戏平台开发经验，2年项目管理经验，目前研究领域为Android手机应用，手机游戏开发。</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/06/markdown-syntax/">Markdown: Syntax</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/03/android-training-design-mutil-screen/">android training lesson 1 - Designing for Multiple Screens</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/30/learning-opengl/">GL从头学（一）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/29/sorting-algorithms/">排序算法比较</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/28/opn-principle/">项目管理的ONP原则</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/lxmxhh">@lxmxhh</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'lxmxhh',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Sam Xu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

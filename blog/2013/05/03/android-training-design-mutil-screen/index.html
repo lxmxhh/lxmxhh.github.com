@@ -1,0 +1,867 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>android training lesson 1 - Designing for Multiple Screens - SamXu's blog</title>
+  <meta name="author" content="Sam Xu">
+
+  
+  <meta name="description" content="Supporting Different Screen Sizes This lesson shows you how to support different screen sizes by: Ensuring your layout can be adequately resized to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://lxmxhh.github.io/blog/2013/05/03/android-training-design-mutil-screen">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="SamXu's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <img style="float:right; " src="/images/head.png">
+  <h1><a href="/">SamXu's blog</a></h1>
+  
+    <h2>A blog for programmers like me.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:lxmxhh.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about-me">About</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Android Training Lesson 1 - Designing for Multiple Screens</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T19:59:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Supporting Different Screen Sizes</h2>
+
+<!--more-->
+
+
+<p>This lesson shows you how to support different screen sizes by:</p>
+
+<ul>
+<li>Ensuring your layout can be adequately resized to fit the screen</li>
+<li>Providing appropriate UI layout according to screen configuration</li>
+<li>Ensuring the correct layout is applied to the correct screen</li>
+<li>Providing bitmaps that scale correctly</li>
+</ul>
+
+
+<h2>Use &#8220;wrap_content&#8221; and &#8220;match_parent&#8221;</h2>
+
+<p>To ensure that your layout is flexible and adapts to different screen sizes, you should use <code>"wrap_content"</code> and <code>"match_parent"</code> for the width and height of some view components. If you use <code>"wrap_content"</code>, the width or height of the view is set to the minimum size necessary to fit the content within that view, while <code>"match_parent"</code> (also known as <code>"fill_parent"</code> before API level 8) makes the component expand to match the size of its parent view.</p>
+
+<p>By using the <code>"wrap_content"</code> and <code>"match_parent"</code> size values instead of hard-coded sizes, your views either use only the space required for that view or expand to fill the available space, respectively. For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:orientation="vertical"
+</span><span class='line'>    android:layout_width="match_parent"
+</span><span class='line'>    android:layout_height="match_parent"&gt;
+</span><span class='line'>    &lt;LinearLayout android:layout_width="match_parent" 
+</span><span class='line'>                  android:id="@+id/linearLayout1"  
+</span><span class='line'>                  android:gravity="center"
+</span><span class='line'>                  android:layout_height="50dp"&gt;
+</span><span class='line'>        &lt;ImageView android:id="@+id/imageView1" 
+</span><span class='line'>                   android:layout_height="wrap_content"
+</span><span class='line'>                   android:layout_width="wrap_content"
+</span><span class='line'>                   android:src="@drawable/logo"
+</span><span class='line'>                   android:paddingRight="30dp"
+</span><span class='line'>                   android:layout_gravity="left"
+</span><span class='line'>                   android:layout_weight="0" /&gt;
+</span><span class='line'>        &lt;View android:layout_height="wrap_content" 
+</span><span class='line'>              android:id="@+id/view1"
+</span><span class='line'>              android:layout_width="wrap_content"
+</span><span class='line'>              android:layout_weight="1" /&gt;
+</span><span class='line'>        &lt;Button android:id="@+id/categorybutton"
+</span><span class='line'>                android:background="@drawable/button_bg"
+</span><span class='line'>                android:layout_height="match_parent"
+</span><span class='line'>                android:layout_weight="0"
+</span><span class='line'>                android:layout_width="120dp"
+</span><span class='line'>                style="@style/CategoryButtonStyle"/&gt;
+</span><span class='line'>    &lt;/LinearLayout&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines" 
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="match_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice how the sample uses <code>"wrap_content"</code> and <code>"match_parent"</code> for component sizes rather than specific dimensions. This allows the layout to adapt correctly to different screen sizes and orientations.</p>
+
+<p>For example, this is what this layout looks like in portrait and landscape mode. Notice that the sizes of the components adapt automatically to the width and height:</p>
+
+<p><img src="/images/blogs/130503/layout-hvga.png"><br/>
+Figure 1. The News Reader sample app in portrait (left) and landscape (right).</p>
+
+<h2>Use RelativeLayout</h2>
+
+<p>You can construct fairly complex layouts using nested instances of <code>LinearLayout</code> and combinations of <code>"wrap_content"</code> and <code>"match_parent"</code> sizes. However, <code>LinearLayout</code> does not allow you to precisely control the spacial relationships of child views; views in a <code>LinearLayout</code> simply line up side-by-side. If you need child views to be oriented in variations other than a straight line, a better solution is often to use a <code>RelativeLayout</code>, which allows you to specify your layout in terms of the spacial relationships between components. For instance, you can align one child view on the left side and another view on the right side of the screen.</p>
+
+<p>For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+</span><span class='line'>&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:layout_width="match_parent"
+</span><span class='line'>    android:layout_height="match_parent"&gt;
+</span><span class='line'>    &lt;TextView
+</span><span class='line'>        android:id="@+id/label"
+</span><span class='line'>        android:layout_width="match_parent"
+</span><span class='line'>        android:layout_height="wrap_content"
+</span><span class='line'>        android:text="Type here:"/&gt;
+</span><span class='line'>    &lt;EditText
+</span><span class='line'>        android:id="@+id/entry"
+</span><span class='line'>        android:layout_width="match_parent"
+</span><span class='line'>        android:layout_height="wrap_content"
+</span><span class='line'>        android:layout_below="@id/label"/&gt;
+</span><span class='line'>    &lt;Button
+</span><span class='line'>        android:id="@+id/ok"
+</span><span class='line'>        android:layout_width="wrap_content"
+</span><span class='line'>        android:layout_height="wrap_content"
+</span><span class='line'>        android:layout_below="@id/entry"
+</span><span class='line'>        android:layout_alignParentRight="true"
+</span><span class='line'>        android:layout_marginLeft="10dp"
+</span><span class='line'>        android:text="OK" /&gt;
+</span><span class='line'>    &lt;Button
+</span><span class='line'>        android:layout_width="wrap_content"
+</span><span class='line'>        android:layout_height="wrap_content"
+</span><span class='line'>        android:layout_toLeftOf="@id/ok"
+</span><span class='line'>        android:layout_alignTop="@id/ok"
+</span><span class='line'>        android:text="Cancel" /&gt;
+</span><span class='line'>&lt;/RelativeLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Figure 2 shows how this layout appears on a QVGA screen.</p>
+
+<p><img src="/images/blogs/130503/relativelayout1.png"><br/>
+Figure 2. Screenshot on a QVGA screen (small screen).</p>
+
+<p>Figure 3 shows how it appears on a larger screen.</p>
+
+<p><img src="/images/blogs/130503/relativelayout2.png"><br/>
+Figure 3. Screenshot on a WSVGA screen (large screen).</p>
+
+<p>Notice that although the size of the components changed, their spatial relationships are preserved as specified by the <code>RelativeLayout.LayoutParams</code>.</p>
+
+<h2>Use Size Qualifiers</h2>
+
+<p>There&#8217;s only so much mileage you can get from a flexible layout or relative layout like the one in the previous sections. While those layouts adapt to different screens by stretching the space within and around components, they may not provide the best user experience for each screen size. Therefore, your application should not only implement flexible layouts, but should also provide several alternative layouts to target different screen configurations. You do so by using <code>configuration qualifiers</code>, which allows the runtime to automatically select the appropriate resource based on the current device’s configuration (such as a different layout design for different screen sizes).</p>
+
+<p>For example, many applications implement the &#8220;two pane&#8221; pattern for large screens (the app might show a list of items on one pane and the content on another pane). Tablets and TVs are large enough for both panes to fit simultaneously on screen, but phone screens have to show them separately. So, to implement these layouts, you could have the following files:</p>
+
+<p><code>res/layout/main.xml</code>, single-pane (default) layout:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:orientation="vertical"
+</span><span class='line'>    android:layout_width="match_parent"
+</span><span class='line'>    android:layout_height="match_parent"&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="match_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/layout-large/main.xml</code>, two-pane layout:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:layout_width="fill_parent"
+</span><span class='line'>    android:layout_height="fill_parent"
+</span><span class='line'>    android:orientation="horizontal"&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="400dp"
+</span><span class='line'>              android:layout_marginRight="10dp"/&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/article"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.ArticleFragment"
+</span><span class='line'>              android:layout_width="fill_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice the <code>large</code> qualifier in the directory name of the second layout. This layout will be selected on devices with screens classified as large (for example, 7&#8221; tablets and above). The other layout (without qualifiers) will be selected for smaller devices.</p>
+
+<p>Use the Smallest-width Qualifier
+One of the difficulties developers had in pre-3.2 Android devices was the &#8220;large&#8221; screen size bin, which encompasses the Dell Streak, the original Galaxy Tab, and 7&#8221; tablets in general. However, many applications may want to show different layouts for different devices in this category (such as for 5&#8221; and 7&#8221; devices), even though they are all considered to be &#8220;large&#8221; screens. That&#8217;s why Android introduced the &#8220;Smallest-width&#8221; qualifier (amongst others) in Android 3.2.</p>
+
+<p>The Smallest-width qualifier allows you to target screens that have a certain minimum width given in dp. For example, the typical 7&#8221; tablet has a minimum width of 600 dp, so if you want your UI to have two panes on those screens (but a single list on smaller screens), you can use the same two layouts from the previous section for single and two-pane layouts, but instead of the <code>large</code> size qualifier, use <code>sw600dp</code> to indicate the two-pane layout is for screens on which the smallest-width is 600 dp:</p>
+
+<p><code>res/layout/main.xml</code>, single-pane (default) layout:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:orientation="vertical"
+</span><span class='line'>    android:layout_width="match_parent"
+</span><span class='line'>    android:layout_height="match_parent"&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="match_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/layout-sw600dp/main.xml</code>, two-pane layout:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:layout_width="fill_parent"
+</span><span class='line'>    android:layout_height="fill_parent"
+</span><span class='line'>    android:orientation="horizontal"&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="400dp"
+</span><span class='line'>              android:layout_marginRight="10dp"/&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/article"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.ArticleFragment"
+</span><span class='line'>              android:layout_width="fill_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This means that devices whose smallest width is greater than or equal to 600dp will select the <code>layout-sw600dp/main.xml</code> (two-pane) layout, while smaller screens will select the <code>layout/main.xml</code> (single-pane) layout.</p>
+
+<p>However, this won&#8217;t work well on pre-3.2 devices, because they don&#8217;t recognize <code>sw600dp</code> as a size qualifier, so you still have to use the <code>large</code> qualifier as well. So, you should have a file named <code>res/layout-large/main.xml</code> which is identical to <code>res/layout-sw600dp/main.xml</code>. In the next section you&#8217;ll see a technique that allows you to avoid duplicating the layout files this way.</p>
+
+<h2>Use Layout Aliases</h2>
+
+<p>The smallest-width qualifier is available only on Android 3.2 and above. Therefore, you should also still use the abstract size bins (small, normal, large and xlarge) to be compatible with earlier versions. For example, if you want to design your UI so that it shows a single-pane UI on phones but a multi-pane UI on 7&#8221; tablets, TVs and other large devices, you&#8217;d have to supply these files:</p>
+
+<ul>
+<li><code>res/layout/main.xml</code>: single-pane layout</li>
+<li><code>res/layout-large</code>: multi-pane layout</li>
+<li><code>res/layout-sw600dp</code>: multi-pane layout
+The last two files are identical, because one of them will be matched by Android 3.2 devices, and the other one is for the benefit of tablets and TVs with earlier versions of Android.</li>
+</ul>
+
+
+<p>To avoid this duplication of the same file for tablets and TVs (and the maintenance headache resulting from it), you can use alias files. For example, you can define the following layouts:</p>
+
+<ul>
+<li><code>res/layout/main.xml</code>, single-pane layout</li>
+<li><code>res/layout/main_twopanes.xml</code>, two-pane layout
+And add these two files:</li>
+</ul>
+
+
+<p><code>res/values-large/layout.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;resources&gt;
+</span><span class='line'>    &lt;item name="main" type="layout"&gt;@layout/main_twopanes&lt;/item&gt;
+</span><span class='line'>&lt;/resources&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/values-sw600dp/layout.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;resources&gt;
+</span><span class='line'>    &lt;item name="main" type="layout"&gt;@layout/main_twopanes&lt;/item&gt;
+</span><span class='line'>&lt;/resources&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These latter two files have identical content, but they don’t actually define the layout. They merely set up <code>main</code> to be an alias to <code>main_twopanes</code>. Since these files have <code>large</code> and <code>sw600dp</code> selectors, they are applied to tablets and TVs regardless of Android version (pre-3.2 tablets and TVs match <code>large</code>, and post-3.2 will match <code>sw600dp</code>).</p>
+
+<h2>Use Orientation Qualifiers</h2>
+
+<p>Some layouts work well in both landscape and portrait orientations, but most of them can benefit from adjustments. In the News Reader sample app, here is how the layout behaves in each screen size and orientation:</p>
+
+<ul>
+<li>small screen, portrait: single pane, with logo</li>
+<li>small screen, landscape: single pane, with logo</li>
+<li>7&#8221; tablet, portrait: single pane, with action bar</li>
+<li>7&#8221; tablet, landscape: dual pane, wide, with action bar</li>
+<li>10&#8221; tablet, portrait: dual pane, narrow, with action bar</li>
+<li>10&#8221; tablet, landscape: dual pane, wide, with action bar</li>
+<li>TV, landscape: dual pane, wide, with action bar
+So each of these layouts is defined in an XML file in the <code>res/layout/ directory</code>. To then assign each layout to the various screen configurations, the app uses layout aliases to match them to each configuration:</li>
+</ul>
+
+
+<p><code>res/layout/onepane.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:orientation="vertical"
+</span><span class='line'>    android:layout_width="match_parent"
+</span><span class='line'>    android:layout_height="match_parent"&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="match_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/layout/onepane_with_bar.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:orientation="vertical"
+</span><span class='line'>    android:layout_width="match_parent"
+</span><span class='line'>    android:layout_height="match_parent"&gt;
+</span><span class='line'>    &lt;LinearLayout android:layout_width="match_parent" 
+</span><span class='line'>                  android:id="@+id/linearLayout1"  
+</span><span class='line'>                  android:gravity="center"
+</span><span class='line'>                  android:layout_height="50dp"&gt;
+</span><span class='line'>        &lt;ImageView android:id="@+id/imageView1" 
+</span><span class='line'>                   android:layout_height="wrap_content"
+</span><span class='line'>                   android:layout_width="wrap_content"
+</span><span class='line'>                   android:src="@drawable/logo"
+</span><span class='line'>                   android:paddingRight="30dp"
+</span><span class='line'>                   android:layout_gravity="left"
+</span><span class='line'>                   android:layout_weight="0" /&gt;
+</span><span class='line'>        &lt;View android:layout_height="wrap_content" 
+</span><span class='line'>              android:id="@+id/view1"
+</span><span class='line'>              android:layout_width="wrap_content"
+</span><span class='line'>              android:layout_weight="1" /&gt;
+</span><span class='line'>        &lt;Button android:id="@+id/categorybutton"
+</span><span class='line'>                android:background="@drawable/button_bg"
+</span><span class='line'>                android:layout_height="match_parent"
+</span><span class='line'>                android:layout_weight="0"
+</span><span class='line'>                android:layout_width="120dp"
+</span><span class='line'>                style="@style/CategoryButtonStyle"/&gt;
+</span><span class='line'>    &lt;/LinearLayout&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines" 
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="match_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/layout/twopanes.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:layout_width="fill_parent"
+</span><span class='line'>    android:layout_height="fill_parent"
+</span><span class='line'>    android:orientation="horizontal"&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="400dp"
+</span><span class='line'>              android:layout_marginRight="10dp"/&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/article"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.ArticleFragment"
+</span><span class='line'>              android:layout_width="fill_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/layout/twopanes_narrow.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</span><span class='line'>    android:layout_width="fill_parent"
+</span><span class='line'>    android:layout_height="fill_parent"
+</span><span class='line'>    android:orientation="horizontal"&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/headlines"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.HeadlinesFragment"
+</span><span class='line'>              android:layout_width="200dp"
+</span><span class='line'>              android:layout_marginRight="10dp"/&gt;
+</span><span class='line'>    &lt;fragment android:id="@+id/article"
+</span><span class='line'>              android:layout_height="fill_parent"
+</span><span class='line'>              android:name="com.example.android.newsreader.ArticleFragment"
+</span><span class='line'>              android:layout_width="fill_parent" /&gt;
+</span><span class='line'>&lt;/LinearLayout&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now that all possible layouts are defined, it&#8217;s just a matter of mapping the correct layout to each configuration using the configuration qualifiers. You can now do it using the layout alias technique:</p>
+
+<p><code>res/values/layouts.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;resources&gt;
+</span><span class='line'>    &lt;item name="main_layout" type="layout"&gt;@layout/onepane_with_bar&lt;/item&gt;
+</span><span class='line'>    &lt;bool name="has_two_panes"&gt;false&lt;/bool&gt;
+</span><span class='line'>&lt;/resources&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/values-sw600dp-land/layouts.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;resources&gt;
+</span><span class='line'>    &lt;item name="main_layout" type="layout"&gt;@layout/twopanes&lt;/item&gt;
+</span><span class='line'>    &lt;bool name="has_two_panes"&gt;true&lt;/bool&gt;
+</span><span class='line'>&lt;/resources&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/values-sw600dp-port/layouts.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;resources&gt;
+</span><span class='line'>    &lt;item name="main_layout" type="layout"&gt;@layout/onepane&lt;/item&gt;
+</span><span class='line'>    &lt;bool name="has_two_panes"&gt;false&lt;/bool&gt;
+</span><span class='line'>&lt;/resources&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/values-large-land/layouts.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;resources&gt;
+</span><span class='line'>    &lt;item name="main_layout" type="layout"&gt;@layout/twopanes&lt;/item&gt;
+</span><span class='line'>    &lt;bool name="has_two_panes"&gt;true&lt;/bool&gt;
+</span><span class='line'>&lt;/resources&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>res/values-large-port/layouts.xml</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;resources&gt;
+</span><span class='line'>    &lt;item name="main_layout" type="layout"&gt;@layout/twopanes_narrow&lt;/item&gt;
+</span><span class='line'>    &lt;bool name="has_two_panes"&gt;true&lt;/bool&gt;
+</span><span class='line'>&lt;/resources&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Use Nine-patch Bitmaps</h2>
+
+<p>Supporting different screen sizes usually means that your image resources must also be capable of adapting to different sizes. For example, a button background must fit whichever button shape it is applied to.</p>
+
+<p>If you use simple images on components that can change size, you will quickly notice that the results are somewhat less than impressive, since the runtime will stretch or shrink your images uniformly. The solution is using nine-patch bitmaps, which are specially formatted PNG files that indicate which areas can and cannot be stretched.</p>
+
+<p>Therefore, when designing bitmaps that will be used on components with variable size, always use nine-patches. To convert a bitmap into a nine-patch, you can start with a regular image (figure 4, shown with in 4x zoom for clarity).</p>
+
+<p><img src="/images/blogs/130503/button.png"><br/>
+Figure 4. button.png</p>
+
+<p>And then run it through the <code>draw9patch</code> utility of the SDK (which is located in the <code>tools/</code> directory), in which you can mark the areas that should be stretched by drawing pixels along the left and top borders. You can also mark the area that should hold the content by drawing pixels along the right and bottom borders, resulting in figure 5.</p>
+
+<p><img src="/images/blogs/130503/button_with_marks.png"><br/>
+Figure 5. button.9.png</p>
+
+<p>Notice the black pixels along the borders. The ones on the top and left borders indicate the places where the image can be stretched, and the ones on the right and bottom borders indicate where the content should be placed.</p>
+
+<p>Also, notice the <code>.9.png</code> extension. You must use this extension, since this is how the framework detects that this is a nine-patch image, as opposed to a regular PNG image.</p>
+
+<p>When you apply this background to a component (by setting <code>android:background="@drawable/button"</code>), the framework stretches the image correctly to accommodate the size of the button, as shown in various sizes in figure 6.</p>
+
+<p><img src="/images/blogs/130503/buttons_stretched.png"><br/>
+Figure 6. A button using the button.9.png nine-patch in various sizes.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sam Xu</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T19:59:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/30/learning-opengl/" title="Previous Post: GL从头学（一）">&laquo; GL从头学（一）</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/06/markdown-syntax/" title="Next Post: Markdown: Syntax">Markdown: Syntax &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+<!-- JiaThis Button BEGIN -->
+<section>
+  <p class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_tsina"></a>
+    <a class="jiathis_button_qzone"></a>
+    <a class="jiathis_button_tqq"></a>
+    <a class="jiathis_button_weixin"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+    <a class="jiathis_counter_style"></a>
+  </p>
+  <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1358821508856846" charset="utf-8"></script>
+</section>
+<!-- JiaThis Button END -->
+
+<!-- Duoshuo Comment BEGIN -->
+<section>
+  <div class="ds-thread"></div>
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lxmxhh"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+</section>
+<!-- Duoshuo Comment END -->　
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>徐鸿，80% Geek + 20% Gamer，从事移动互联网产品开发的程序猿，6年游戏开发经验，3年手机游戏平台开发经验，2年项目管理经验，目前研究领域为Android手机应用，手机游戏开发。</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/06/markdown-syntax/">Markdown: Syntax</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/03/android-training-design-mutil-screen/">android training lesson 1 - Designing for Multiple Screens</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/30/learning-opengl/">GL从头学（一）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/29/sorting-algorithms/">排序算法比较</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/28/opn-principle/">项目管理的ONP原则</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/lxmxhh">@lxmxhh</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'lxmxhh',
+            count: 1,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Sam Xu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
