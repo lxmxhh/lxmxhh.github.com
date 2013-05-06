@@ -1,102 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Markdown: Syntax - SamXu's blog</title>
-  <meta name="author" content="Sam Xu">
-
-  
-  <meta name="description" content="NOTE: This is Traditional Chinese Edition Document of
-Markdown Syntax. If you are seeking for English Edition
-Document. Please refer to Markdown: &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://lxmxhh.github.io/blog/2013/05/06/markdown-syntax">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="SamXu's blog" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <img style="float:right; " src="/images/head.png">
-  <h1><a href="/">SamXu's blog</a></h1>
-  
-    <h2>A blog for programmers like me.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:lxmxhh.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about-me">About</a></li>
-
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
+  <title><![CDATA[Category: 其它 | SamXu's blog]]></title>
+  <link href="http://lxmxhh.github.io/blog/categories/qi-ta/atom.xml" rel="self"/>
+  <link href="http://lxmxhh.github.io/"/>
+  <updated>2013-05-06T19:14:36+08:00</updated>
+  <id>http://lxmxhh.github.io/</id>
+  <author>
+    <name><![CDATA[Sam Xu]]></name>
     
-      <h1 class="entry-title">Markdown: Syntax</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2013-05-06T16:28:00+08:00" pubdate data-updated="true">May 6<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p><strong>NOTE:</strong> This is Traditional Chinese Edition Document of
+  <entry>
+    <title type="html"><![CDATA[Markdown: Syntax]]></title>
+    <link href="http://lxmxhh.github.io/blog/2013/05/06/markdown-syntax/"/>
+    <updated>2013-05-06T16:28:00+08:00</updated>
+    <id>http://lxmxhh.github.io/blog/2013/05/06/markdown-syntax</id>
+    <content type="html"><![CDATA[<p><strong>NOTE:</strong> This is Traditional Chinese Edition Document of
 Markdown Syntax. If you are seeking for English Edition
 Document. Please refer to <a href="http://daringfireball.net/projects/markdown/syntax">Markdown: Syntax</a>.</p>
 
@@ -657,7 +579,7 @@ title attribute.&lt;/p&gt;
 [link text][A]
 </code></pre>
 
-<p><em>預設的連結標籤</em>功能讓你可以省略指定連結標籤，這種情形下，連結標籤和連結文字會視為相同，要用預設連結標籤只要在連結文字後面加上一個空的方括號，如果你要讓 &#8220;Google&#8221; 連結到 google.com，你可以簡化成：</p>
+<p><em>預設的連結標籤</em>功能讓你可以省略指定連結標籤，這種情形下，連結標籤和連結文字會視為相同，要用預設連結標籤只要在連結文字後面加上一個空的方括號，如果你要讓 "Google" 連結到 google.com，你可以簡化成：</p>
 
 <pre><code>[Google][]
 </code></pre>
@@ -835,7 +757,7 @@ equivalent of &lt;code&gt;&amp;amp;mdash;&lt;/code&gt;.&lt;/p&gt;
 <li>一個驚嘆號 <code>!</code></li>
 <li>接著一個方括號，裡面放上圖片的替代文字</li>
 <li>接著一個普通括號，裡面放上圖片的網址，最後還可以用引號包住並加上
-選擇性的 &#8216;title&#8217; 文字。</li>
+選擇性的 'title' 文字。</li>
 </ul>
 
 
@@ -916,176 +838,7 @@ _   底線
 
 
 <p>感謝 <a href="https://twitter.com/#!/leafy7382">leafy7382</a> 協助翻譯，<a href="http://iamhlb.com/">hlb</a>、<a href="http://twitter.com/randylien">Randylien</a> 幫忙潤稿，<a href="https://twitter.com/#!/ethantw">ethantw</a> 的<a href="http://ethantw.net/projects/han/">漢字標準格式・CSS Reset</a>， <a href="http://kidwm.net/">WM</a> 回報文字錯誤。</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
+]]></content>
+  </entry>
   
-
-<span class="byline author vcard">Posted by <span class="fn">Sam Xu</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-06T16:28:00+08:00" pubdate data-updated="true">May 6<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/qi-ta/'>其它</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2013/05/03/android-training-design-mutil-screen/" title="Previous Post: android training lesson 1 - Designing for Multiple Screens">&laquo; android training lesson 1 - Designing for Multiple Screens</a>
-      
-      
-    </p>
-  </footer>
-</article>
-<!-- JiaThis Button BEGIN -->
-<section>
-  <p class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_tsina"></a>
-    <a class="jiathis_button_qzone"></a>
-    <a class="jiathis_button_tqq"></a>
-    <a class="jiathis_button_weixin"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-    <a class="jiathis_counter_style"></a>
-  </p>
-  <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1358821508856846" charset="utf-8"></script>
-</section>
-<!-- JiaThis Button END -->
-
-<!-- Duoshuo Comment BEGIN -->
-<section>
-  <div class="ds-thread"></div>
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"lxmxhh"};
-    (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = 'http://static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-</section>
-<!-- Duoshuo Comment END -->　
-
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p>徐鸿，80% Geek + 20% Gamer，从事移动互联网产品开发的程序猿，6年游戏开发经验，3年手机游戏平台开发经验，2年项目管理经验，目前研究领域为Android手机应用，手机游戏开发。</p>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/05/06/markdown-syntax/">Markdown: Syntax</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/03/android-training-design-mutil-screen/">android training lesson 1 - Designing for Multiple Screens</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/30/learning-opengl/">GL从头学（一）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/29/sorting-algorithms/">排序算法比较</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/28/opn-principle/">项目管理的ONP原则</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/lxmxhh">@lxmxhh</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'lxmxhh',
-            count: 1,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Sam Xu -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+</feed>
