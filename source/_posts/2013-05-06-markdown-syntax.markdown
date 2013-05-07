@@ -12,6 +12,7 @@ Document. Please refer to [Markdown: Syntax][eng-doc].
 
 [eng-doc]:http://daringfireball.net/projects/markdown/syntax
 
+{% img center http://placekitten.com/400/160 %} 
 <!--more-->
 
 Markdown: Syntax

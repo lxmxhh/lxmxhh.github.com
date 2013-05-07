@@ -7,6 +7,7 @@ categories: android
 ---
 
 Supporting Different Screen Sizes
+{% img center http://placekitten.com/320/360 %} 
 ---
 <!--more-->
 This lesson shows you how to support different screen sizes by:  

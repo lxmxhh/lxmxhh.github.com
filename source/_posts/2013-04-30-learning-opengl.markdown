@@ -6,9 +6,10 @@ comments: true
 categories: 图形编程
 ---
 进入游戏行业已经8年了，虽然一直从事的图形图像相关的开发，接触的一直都是微软的DX，从未有闲暇去了解一下鼻祖OpenGL。之前的红宝书也不知道哪里去了，最近发现再版，立马入手了。
-亚马逊链接： [OpenGL编程指南]
-[OpenGL编程指南]:http://www.amazon.cn/gp/aw/d/B003D7LWI6/ref=mp_s_a_1?qid=1367829548&sr=8-1&pi=SL75
+亚马逊链接： [OpenGL编程指南]  
+{% img center http://placekitten.com/400/300 %} 
 
+[OpenGL编程指南]:http://www.amazon.cn/gp/aw/d/B003D7LWI6/ref=mp_s_a_1?qid=1367829548&sr=8-1&pi=SL75
 <!--more-->
 OpenGL 数据类型
 ---
