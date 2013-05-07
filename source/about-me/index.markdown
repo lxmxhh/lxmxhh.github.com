@@ -9,7 +9,7 @@ footer: true
 
 <ul>
 	<li><span id="ft_mobile" style="font-size:26px"></span>+86 138 1790 7286</li>
-	<li><a href="mailto:homhsu@gmail.com" target="_blank" style="font-size:24px"><span id="ft_email"></span>homhsu@gmail.com</a></li>
+	<li><span id="ft_email" style="font-size:26px"></span>samxuhong@gmail.com</li>
 	<li><a href="http://weibo.com/111030999" target="_blank" style="font-size:24px"><span id="ft_weibo"></span>徐鸿</a></li>
 	<li><a href="http://github.com/lxmxhh" target="_blank" style="font-size:24px"><span id="ft_git_svg"></span>Github</a></li>
 	<li><a href="http://www.linkedin.com/pub/sam-xu/14/758/779" target="_blank" style="font-size:24px"><span id="ft_linkedin"></span>LinkedIn</a></li>
