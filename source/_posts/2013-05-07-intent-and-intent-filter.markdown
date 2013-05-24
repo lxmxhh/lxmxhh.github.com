@@ -442,10 +442,10 @@ Activity的第二个作用是允许用户创建新的note，并插入到已有�
 ```
 这个intent过滤器可以使用一个用户定义的名为`com.android.notepad.action.EDIT_TITLE`的动作。调用一个指定的note（数据类型是`vnd.android.cursor.item/vnd.google.note`），如之前的`VIEW` 和`EDIT` 动作。然而，Activity显示包含着note数据里的标题，不包含note内容本身。
 
-支持类`DEFAULT` ，标题编辑器支持其它两个标准的类：`ALTERNATIVE`和`SELECTED_ALTERNATIVE`。这些类别暗示了Activity可以在一个菜单选项里显示给用户（比如：`LAUNCHER` 类别暗示了Activity需要在程序启动的时候显示给用户）。注意：过滤器也提供显示的标签（通过：`android:label="@string/resolve_title"`）来控制Activity，这个Activity用来替代显示数据的动作。（更多关于这些类别的信息、建立菜单选项，阅读 `PackageManager.queryIntentActivityOptions()和Menu.addIntentOptions()`函数。）
+支持类`DEFAULT` ，标题编辑器支持其它两个标准的类：`ALTERNATIVE`和`SELECTED_ALTERNATIVE`。这些类别暗示了Activity可以在一个菜单选项里显示给用户（比如：`LAUNCHER` 类别暗示了Activity需要在程序启动的时候显示给用户）。注意：过滤器也提供显示的标签（通过：`android:label="@string/resolve_title"`）来控制Activity，这个Activity用来替代显示数据的动作。（更多关于这些类别的信息、建立菜单选项，阅读 `PackageManager.queryIntentActivityOptions()`和`Menu.addIntentOptions()`函数。）
 
 给定这些功能，下面的intent可以解决TitleEditor Activity：
 
-动作： `com.android.notepad.action.EDIT_TITLE` 
-数据：`content://com.google.provider.NotePad/notes/ID`
+动作： `com.android.notepad.action.EDIT_TITLE`  
+数据：`content://com.google.provider.NotePad/notes/ID`  
 调用Activity来显示和ID关联的标题，允许用户编辑标题。
