@@ -12,7 +12,7 @@ Intent和Intent过滤器:
 版本：Android 4.0 r1  
 译者署名：Rongqi Fan  
 译者链接：
-
+<!--more-->
 程序的3个核心组件——Activity、services、广播接收器——是通过intent传递消息的。intent消息对于运行时绑定不同的组件是很方便的，这些组件可以是同一个程序也可以是不同的。一个intent对象，是一个被动的数据结构，它保存了一个操作的抽象描述——或通常是一个广播的实例，一些发生的事情的描述，一个通知。传递intent到不同组件的机制是互不相同的。
 
 * intent对象是传递给Context.startActivity() 或Activity.startActivityForResult() 以启动Activity或是让一个存在的Activity做些事情。（也可以传递给Activity.setResult()来返回Activity的信息，这个函数叫startActivityForResult()。）
