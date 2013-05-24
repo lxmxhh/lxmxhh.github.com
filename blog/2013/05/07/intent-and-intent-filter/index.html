@@ -104,6 +104,9 @@
 译者署名：Rongqi Fan<br/>
 译者链接：</p>
 
+<!--more-->
+
+
 <p>程序的3个核心组件——Activity、services、广播接收器——是通过intent传递消息的。intent消息对于运行时绑定不同的组件是很方便的，这些组件可以是同一个程序也可以是不同的。一个intent对象，是一个被动的数据结构，它保存了一个操作的抽象描述——或通常是一个广播的实例，一些发生的事情的描述，一个通知。传递intent到不同组件的机制是互不相同的。</p>
 
 <ul>
@@ -669,12 +672,12 @@ manifest文件里的<code>&lt;intent-filter&gt;</code>元素作为 <code>&lt;act
 
 <p>这个intent过滤器可以使用一个用户定义的名为<code>com.android.notepad.action.EDIT_TITLE</code>的动作。调用一个指定的note（数据类型是<code>vnd.android.cursor.item/vnd.google.note</code>），如之前的<code>VIEW</code> 和<code>EDIT</code> 动作。然而，Activity显示包含着note数据里的标题，不包含note内容本身。</p>
 
-<p>支持类<code>DEFAULT</code> ，标题编辑器支持其它两个标准的类：<code>ALTERNATIVE</code>和<code>SELECTED_ALTERNATIVE</code>。这些类别暗示了Activity可以在一个菜单选项里显示给用户（比如：<code>LAUNCHER</code> 类别暗示了Activity需要在程序启动的时候显示给用户）。注意：过滤器也提供显示的标签（通过：<code>android:label="@string/resolve_title"</code>）来控制Activity，这个Activity用来替代显示数据的动作。（更多关于这些类别的信息、建立菜单选项，阅读 <code>PackageManager.queryIntentActivityOptions()和Menu.addIntentOptions()</code>函数。）</p>
+<p>支持类<code>DEFAULT</code> ，标题编辑器支持其它两个标准的类：<code>ALTERNATIVE</code>和<code>SELECTED_ALTERNATIVE</code>。这些类别暗示了Activity可以在一个菜单选项里显示给用户（比如：<code>LAUNCHER</code> 类别暗示了Activity需要在程序启动的时候显示给用户）。注意：过滤器也提供显示的标签（通过：<code>android:label="@string/resolve_title"</code>）来控制Activity，这个Activity用来替代显示数据的动作。（更多关于这些类别的信息、建立菜单选项，阅读 <code>PackageManager.queryIntentActivityOptions()</code>和<code>Menu.addIntentOptions()</code>函数。）</p>
 
 <p>给定这些功能，下面的intent可以解决TitleEditor Activity：</p>
 
-<p>动作： <code>com.android.notepad.action.EDIT_TITLE</code>
-数据：<code>content://com.google.provider.NotePad/notes/ID</code>
+<p>动作： <code>com.android.notepad.action.EDIT_TITLE</code><br/>
+数据：<code>content://com.google.provider.NotePad/notes/ID</code><br/>
 调用Activity来显示和ID关联的标题，允许用户编辑标题。</p>
 </div>
 
@@ -721,6 +724,8 @@ manifest文件里的<code>&lt;intent-filter&gt;</code>元素作为 <code>&lt;act
       
         <a class="basic-alignment left" href="/blog/2013/05/06/markdown-syntax/" title="Previous Post: Markdown: Syntax">&laquo; Markdown: Syntax</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2013/05/24/lizhiganxiang/" title="Next Post: Last day">Last day &raquo;</a>
       
     </p>
   </footer>
@@ -771,6 +776,10 @@ manifest文件里的<code>&lt;intent-filter&gt;</code>元素作为 <code>&lt;act
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/05/24/lizhiganxiang/">Last day</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/05/07/intent-and-intent-filter/">Intents and Intent filters</a>
       </li>
     
@@ -784,10 +793,6 @@ manifest文件里的<code>&lt;intent-filter&gt;</code>元素作为 <code>&lt;act
     
       <li class="post">
         <a href="/blog/2013/04/30/learning-opengl/">GL从头学（一）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/29/sorting-algorithms/">排序算法比较</a>
       </li>
     
   </ul>
