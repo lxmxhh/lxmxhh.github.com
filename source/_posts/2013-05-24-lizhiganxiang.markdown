@@ -3,7 +3,7 @@ layout: post
 title: "Last day"
 date: 2013-05-24 09:31
 comments: true
-categories: 
+categories: 其他
 ---
 今日离职。
 <!--more-->
