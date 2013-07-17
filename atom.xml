@@ -4,7 +4,7 @@
   <title><![CDATA[SamXu's blog]]></title>
   <link href="http://lxmxhh.github.io/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
-  <updated>2013-07-17T23:40:06+08:00</updated>
+  <updated>2013-07-17T23:47:04+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
   <author>
     <name><![CDATA[Sam Xu]]></name>
@@ -21,6 +21,11 @@
     <content type="html"><![CDATA[<p>敏捷开发，要求在开发过程中不断增强，从而提高软件质量，以达到提高商业收入的目的。它是一个迭代的过程，一个不断提高企业投资回报率和服务质量的过程。值得注意的是，成功的敏捷开发，单纯依附于活跃的开发过程和理解敏捷所带来的效益并对此有浓厚兴趣的企业用户。</p>
 
 <p>本文将介绍敏捷开发的五大过程及这些过程中所要用到的工具。</p>
+
+<p><img class="center" src="http://placekitten.com/500/160"></p>
+
+<!--more-->
+
 
 <ol>
 <li><p><strong>敏捷计划</strong></p>
