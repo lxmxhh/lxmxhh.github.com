@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>项目管理的ONP原则 - SamXu's blog</title>
+  <title>texture compression - SamXu's blog</title>
   <meta name="author" content="Sam Xu">
 
   
-  <meta name="description" content="前阵子学到了一招，项目管理中关于预估的ONP原则。 顾名思义，O乐观估计，N普通估计，P悲观估计。 当有一个新需求产生的时候，产品经理大表哥总是会问，“这个需要多长时间啊，最快什么时候能好？应该很简单的吧” 。 年轻气盛的小瘦就会回答了：“嗯，这个简单。两天帮你搞定。包在我身上。” &hellip;">
+  <meta name="description" content="Texture compression support Texture compression can significantly increase the performance of your OpenGL application by reducing memory requirements &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lxmxhh.github.io/blog/2013/04/28/opn-principle">
+  <link rel="canonical" href="http://lxmxhh.github.io/blog/2013/06/10/texture-compression">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="SamXu's blog" type="application/atom+xml">
@@ -71,7 +71,7 @@
   
   <header>
     
-      <h1 class="entry-title">项目管理的ONP原则</h1>
+      <h1 class="entry-title">Texture Compression</h1>
     
     
       <p class="meta">
@@ -87,57 +87,39 @@
   
 
 
-<time datetime="2013-04-28T23:01:00+08:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time>
+<time datetime="2013-06-10T23:00:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><img class="right" src="http://placekitten.com/240/320"></p>
+<div class="entry-content"><p>Texture compression support</p>
 
-<p>前阵子学到了一招，项目管理中关于预估的ONP原则。</p>
+<p>Texture compression can significantly increase the performance of your OpenGL application by reducing memory requirements and making more efficient use of memory bandwidth. <!--more-->The Android framework provides support for the ETC1 compression format as a standard feature, including a ETC1Util utility class and the etc1tool compression tool (located in the Android SDK at <code>&lt;sdk&gt;/tools/</code>). For an example of an Android application that uses texture compression, see the CompressedTextureActivity code sample.</p>
 
+<p>The ETC format is supported by most Android devices, but it not guarranteed to be available. To check if the ETC1 format is supported on a device, call the <code>ETC1Util.isETC1Supported()</code> method.</p>
 
-<p>顾名思义，O乐观估计，N普通估计，P悲观估计。</p>
+<p>Note: The ETC1 texture compression format does not support textures with an alpha channel. If your application requires textures with an alpha channel, you should investigate other texture compression formats available on your target devices.</p>
 
+<p>Beyond the ETC1 format, Android devices have varied support for texture compression based on their GPU chipsets and OpenGL implementations. You should investigate texture compression support on the devices you are are targeting to determine what compression types your application should support. In order to determine what texture formats are supported on a given device, you must query the device and review the OpenGL extension names, which identify what texture compression formats (and other OpenGL features) are supported by the device. Some commonly supported texture compression formats are as follows:</p>
 
-<!--more-->
+<p>ATITC (ATC) - ATI texture compression (ATITC or ATC) is available on a wide variety of devices and supports fixed rate compression for RGB textures with and without an alpha channel. This format may be represented by several OpenGL extension names, for example:
+GL_AMD_compressed_ATC_texture<br/>
+GL_ATI_texture_compression_atitc<br/>
+PVRTC - PowerVR texture compression (PVRTC) is available on a wide variety of devices and supports 2-bit and 4-bit per pixel textures with or without an alpha channel. This format is represented by the following OpenGL extension name:<br/>
+GL_IMG_texture_compression_pvrtc<br/>
+S3TC (DXTn/DXTC) - S3 texture compression (S3TC) has several format variations (DXT1 to DXT5) and is less widely available. The format supports RGB textures with 4-bit alpha or 8-bit alpha channels. This format may be represented by several OpenGL extension names, for example:<br/>
+GL_OES_texture_compression_S3TC<br/>
+GL_EXT_texture_compression_s3tc<br/>
+GL_EXT_texture_compression_dxt1<br/>
+GL_EXT_texture_compression_dxt3<br/>
+GL_EXT_texture_compression_dxt5<br/>
+3DC - 3DC texture compression (3DC) is a less widely available format that supports RGB textures with an an alpha channel. This format is represented by the following OpenGL extension name:
+GL_AMD_compressed_3DC_texture<br/>
+Warning: These texture compression formats are not supported on all devices. Support for these formats can vary by manufacturer and device. For information on how to determine what texture compression formats are on a particular device, see the next section.</p>
 
-
-<p>当有一个新需求产生的时候，产品经理大表哥总是会问，“这个需要多长时间啊，最快什么时候能好？应该很简单的吧” 。</p>
-
-
-<p>年轻气盛的小瘦就会回答了：“嗯，这个简单。两天帮你搞定。包在我身上。” 大表哥听了很高兴。这叫乐观估计。</p>
-
-
-<p>曾吃过亏的老龚就会说：“这项工作我来做的话，需要4天完成。但考虑到各种不确定因素，保守估计8天吧。你的需求有哪次不是变来变去的？”大表哥羞愧的低下了头。这叫悲观估计。</p>
-
-
-<p>见过世面的大师掐指一算：“老衲觉得需要4.3天，就算是5天吧。但也可能需要6天或者7天。” “大师，此话怎讲。说了等于白说。”</p>
-
-
-<p>大师继续说：“其实佛祖托梦，给了我一个计算公式。套用即可。” “大师，您也太能忽悠了。”</p>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>μ = (O+4N+P)/6           #平均值 
-</span><span class='line'>σ = (P-O)/6              #标准差
-</span><span class='line'>U = μ or μ+1σ or μ+2σ    #估算值</span></code></pre></td></tr></table></div></figure>
-
-
-<p>工作量预估实际上是一个概率分布问题。就拿刚才的例子来说，这个工作项有10%的可能性在2天内完成，15%的可能性在3天内完成，30%的可能性在4天内完成，25%的可能性在5天内完成，在6、7、8天内完成的可能性分别是10%、6%和3%。在1天以内或者9天以上完成的可能性基本为0。</p>
-
-
-<p>当然，上述分布的情况比较理想化，只是用来举例。每次项目要如此进行概率估算，并且计算平均值和标准差，还是比较复杂的。为了简化计算，前人总结出了以上公式。</p>
-
-
-
-
-<p>各位今后在进行工作量预估的时候不妨也这么试一下。先确定好合理的ONP，再套用公式。顺便把这套算法讲给产品经理听，做一个守信的专业程序员。</p>
-
+<p>Note: Once you decide which texture compression formats your application will support, make sure you declare them in your manifest using <code>&lt;supports-gl-texture&gt;</code> . Using this declaration enables filtering by external services such as Google Play, so that your app is installed only on devices that support the formats your app requires. For details, see OpenGL manifest declarations.</p>
 </div>
 
 
@@ -160,12 +142,12 @@
   
 
 
-<time datetime="2013-04-28T23:01:00+08:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time>
+<time datetime="2013-06-10T23:00:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/xiang-mu-guan-li/'>项目管理</a>
+    <a class='category' href='/blog/categories/tu-xing-bian-cheng/'>图形编程</a>
   
 </span>
 
@@ -181,10 +163,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/04/27/wei-yi-bu-bian-de-zhi-you-bian-hua/" title="Previous Post: 唯一不变的只有变化">&laquo; 唯一不变的只有变化</a>
+        <a class="basic-alignment left" href="/blog/2013/05/24/lizhiganxiang/" title="Previous Post: Last day">&laquo; Last day</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/04/29/sorting-algorithms/" title="Next Post: 排序算法比较">排序算法比较 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/07/17/agile-development-process/" title="Next Post: 敏捷开发过程剖析及工具推荐">敏捷开发过程剖析及工具推荐 &raquo;</a>
       
     </p>
   </footer>
