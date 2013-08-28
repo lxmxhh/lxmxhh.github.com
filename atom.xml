@@ -4,7 +4,7 @@
   <title><![CDATA[SamXu's blog]]></title>
   <link href="http://lxmxhh.github.io/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
-  <updated>2013-07-17T23:47:04+08:00</updated>
+  <updated>2013-08-28T23:49:45+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
   <author>
     <name><![CDATA[Sam Xu]]></name>
@@ -12,6 +12,246 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[轻松编写 C++ 单元测试]]></title>
+    <link href="http://lxmxhh.github.io/blog/2013/08/28/googletest-for-cpp/"/>
+    <updated>2013-08-28T22:35:00+08:00</updated>
+    <id>http://lxmxhh.github.io/blog/2013/08/28/googletest-for-cpp</id>
+    <content type="html"><![CDATA[<p>作为一个TDD的脑残粉，凡事都想测试先行。现在回归C++开发，顿时觉得各种不方便。特别是手头没有好用的单元测试框架，开发效率简直无法忍受，写好的代码重构起来也畏手畏脚。</p>
+
+<!--more-->
+
+
+<p>
+曾经尝试过CppUnit，作为JUnit的同胞，出自名门，但在C++开发中，尤其在VS环境下实在是太难用了（主要是由于 C++ 没有反射机制，而这是 JUnit 设计的基础）。偶然搜得googletest，一套由 google 发布的开源单元测试框架。</p>
+
+<h2>应用 googletest 编写单元测试代码</h2>
+
+<p>googletest 是由 Google 公司发布，且遵循 New BSD License （可用作商业用途）的开源项目，并且 googletest 可以支持绝大多数大家所熟知的平台。与 CppUnit 不同的是： googletest 可以自动记录下所有定义好的测试，不需要用户通过列举来指明哪些测试需要运行。</p>
+
+<h3>定义单元测试</h3>
+
+<p>在应用 googletest 编写单元测试时，使用 <code>TEST()</code> 宏来声明测试函数。如：</p>
+
+<p>清单 1. 用 <code>TEST()</code> 宏声明测试函数
+<code></p>
+
+<pre><code>TEST(GlobalConfigurationTest, configurationDataTest) 
+TEST(GlobalConfigurationTest, noConfigureFileTest)
+</code></pre>
+
+<p></code>
+分别针对同一程序单元 <code>GlobalConfiguration</code> 声明了两个不同的测试函数，以分别对配置数据进行检查<code>configurationDataTest</code>，以及测试没有配置文件的特殊情况<code>noConfigureFileTest</code>。</p>
+
+<h3>实现单元测试</h3>
+
+<p>针对同一程序单元设计出不同的测试场景后（即划分出不同的 Test 后），开发者就可以编写单元测试分别实现这些测试场景了。</p>
+
+<p>在 googletest 中实现单元测试，可通过 <code>ASSERT_*</code> 和 <code>EXPECT_*</code> 断言来对程序运行结果进行检查。 <code>ASSERT_*</code> 版本的断言失败时会产生致命失败，并结束当前函数； <code>EXPECT_*</code> 版本的断言失败时产生非致命失败，但不会中止当前函数。因此， <code>ASSERT_*</code> 常常被用于后续测试逻辑强制依赖的处理结果的断言，如创建对象后检查指针是否为空，若为空，则后续对象方法调用会失败；而 <code>EXPECT_*</code> 则用于即使失败也不会影响后续测试逻辑的处理结果的断言，如某个方法返回结果的多个属性的检查。</p>
+
+<p>googletest 中定义了如下的断言：<br/>
+表 1： googletest 定义的断言（ Assert ）</p>
+
+<table>
+    <tr>
+        <td>基本断言</td>
+        <td>二进制比较</td>
+        <td>字符串比较</td>
+    </tr>
+    <tr>
+        <td>ASSERT_TRUE(condition); condition为真</td>
+        <td>ASSERT_EQ(expected,actual); expected==actual</td>
+        <td>ASSERT_STREQ(expected_str,actual_str); 两个 C 字符串有相同的内容</td>
+    </tr>
+    <tr>
+        <td>EXPECT_TRUE(condition); condition为真</td>
+        <td>EXPECT_EQ(expected,actual); expected==actual</td>
+        <td>EXPECT_STREQ(expected_str,actual_str); 两个 C 字符串有相同的内容</td>
+    </tr>
+    <tr>
+        <td>ASSERT_FALSE(condition); condition为假</td>
+        <td>ASSERT_NE(val1,val2); val1!=val2</td>
+        <td>ASSERT_STRNE(str1,str2); 两个 C 字符串有不同的内容</td>
+    </tr>
+    <tr>
+        <td>EXPECT_FALSE(condition); condition为假</td>
+        <td>EXPECT_NE(val1,val2); val1!=val2</td>
+        <td>EXPECT_STRNE(str1,str2); 两个 C 字符串有不同的内容</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ASSERT_LT(val1,val2); val1&ltval2</td>
+        <td>ASSERT_STRCASEEQ(expected_str,actual_str); 两个 C 字符串有相同的内容，忽略大小写</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>EXPECT_LT(val1,val2); val1&ltval2</td>
+        <td>EXPECT_STRCASEEQ(expected_str,actual_str); 两个 C 字符串有相同的内容，忽略大小写</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ASSERT_LE(val1,val2); val1&lt=val2</td>
+        <td>ASSERT_STRCASENE(expected_str,actual_str); 两个 C 字符串有不同的内容，忽略大小写</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>EXPECT_LE(val1,val2); val1&lt=val2</td>
+        <td>EXPECT_STRCASENE(expected_str,actual_str); 两个 C 字符串有不同的内容，忽略大小写</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ASSERT_GT(val1,val2); val1&gtval2</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>EXPECT_GT(val1,val2); val1&gtval2</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>ASSERT_GE(val1,val2); val1&gt=val2</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>EXPECT_GE(val1,val2); val1&gt=val2</td>
+        <td></td>
+    </tr>
+</table>
+
+
+<p>下面的实例演示了上面部分断言的使用：</p>
+
+<p>清单 2. 一个较完整的 googletest 单元测试实例
+<code></p>
+
+<pre><code>// Configure.h 
+ #pragma once 
+
+ #include &lt;string&gt; 
+ #include &lt;vector&gt; 
+
+ class Configure 
+ { 
+ private: 
+    std::vector&lt;std::string&gt; vItems; 
+
+ public: 
+    int addItem(std::string str); 
+
+    std::string getItem(int index); 
+
+    int getSize(); 
+ }; 
+
+ // Configure.cpp 
+ #include "Configure.h" 
+
+ #include &lt;algorithm&gt; 
+
+ /** 
+ * @brief Add an item to configuration store. Duplicate item will be ignored 
+ * @param str item to be stored 
+ * @return the index of added configuration item 
+ */ 
+ int Configure::addItem(std::string str) 
+ { 
+    std::vector&lt;std::string&gt;::const_iterator vi=std::find(vItems.begin(), vItems.end(), str); 
+    if (vi != vItems.end()) 
+        return vi - vItems.begin(); 
+
+    vItems.push_back(str); 
+    return vItems.size() - 1; 
+ } 
+
+ /** 
+ * @brief Return the configure item at specified index. 
+ * If the index is out of range, "" will be returned 
+ * @param index the index of item 
+ * @return the item at specified index 
+ */ 
+ std::string Configure::getItem(int index) 
+ { 
+    if (index &gt;= vItems.size()) 
+        return ""; 
+    else 
+        return vItems.at(index); 
+ } 
+
+ /// Retrieve the information about how many configuration items we have had 
+ int Configure::getSize() 
+ { 
+    return vItems.size(); 
+ } 
+
+ // ConfigureTest.cpp 
+ #include &lt;gtest/gtest.h&gt; 
+
+ #include "Configure.h" 
+
+ TEST(ConfigureTest, addItem) 
+ { 
+    // do some initialization 
+    Configure* pc = new Configure(); 
+
+    // validate the pointer is not null 
+    ASSERT_TRUE(pc != NULL); 
+
+    // call the method we want to test 
+    pc-&gt;addItem("A"); 
+    pc-&gt;addItem("B"); 
+    pc-&gt;addItem("A"); 
+
+    // validate the result after operation 
+    EXPECT_EQ(pc-&gt;getSize(), 2); 
+    EXPECT_STREQ(pc-&gt;getItem(0).c_str(), "A"); 
+    EXPECT_STREQ(pc-&gt;getItem(1).c_str(), "B"); 
+    EXPECT_STREQ(pc-&gt;getItem(10).c_str(), ""); 
+
+    delete pc; 
+ }
+</code></pre>
+
+<p></code></p>
+
+<h3>运行单元测试</h3>
+
+<p>在实现完单元测试的测试逻辑后，可以通过 <code>RUN_ALL_TESTS()</code> 来运行它们，如果所有测试成功，该函数返回 0，否则会返回 1 。 <code>RUN_ALL_TESTS()</code> 会运行你链接到的所有测试――它们可以来自不同的测试案例，甚至是来自不同的文件。</p>
+
+<p>因此，运行 googletest 编写的单元测试的一种比较简单可行的方法是：<br/>
+为每一个被测试的 class 分别创建一个测试文件，并在该文件中编写针对这一 class 的单元测试；<br/>
+编写一个 <code>Main.cpp</code> 文件，并在其中包含以下代码，以运行所有单元测试：</p>
+
+<p>清单 3. 初始化 googletest 并运行所有测试
+<code></p>
+
+<pre><code>#include &lt;gtest/gtest.h&gt; 
+
+ int main(int argc, char** argv) { 
+    testing::InitGoogleTest(&amp;argc, argv); 
+
+    // Runs all tests using Google Test. 
+    return RUN_ALL_TESTS(); 
+ }
+</code></pre>
+
+<p></code>
+最后，将所有测试代码及 <code>Main.cpp</code> 编译并链接到目标程序中。<br/>
+此外，在运行可执行目标程序时，可以使用 <code>--gtest_filter</code> 来指定要执行的测试用例，如：<br/>
++ <code>./foo_test</code> 没有指定 <code>filter</code> ，运行所有测试；
++ <code>./foo_test --gtest_filter=*</code> 指定 <code>filter</code> 为 <code>*</code> ，运行所有测试；
++ <code>./foo_test --gtest_filter=FooTest.*</code> 运行测试用例 <code>FooTest</code> 的所有测试；
++ <code>./foo_test --gtest_filter=*Null*:*Constructor*</code> 运行所有全名（即测试用例名 + “ . ” + 测试名，如 <code>GlobalConfigurationTest.noConfigureFileTest</code> ）含有&#8221;Null&#8221; 或&#8221;Constructor&#8221; 的测试；
++ <code>./foo_test --gtest_filter=FooTest.*-FooTest.Bar</code> 运行测试用例 <code>FooTest</code> 的所有测试，但不包括 <code>FooTest.Bar</code>。
+这一特性在包含大量测试用例的项目中会十分有用。</p>
+
+<hr />
+
+<p>关于 googletest 的更多信息，请访问其项目主页：<a href="http://code.google.com/p/googletest/">http://code.google.com/p/googletest/</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[敏捷开发过程剖析及工具推荐]]></title>
