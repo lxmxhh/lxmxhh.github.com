@@ -3,7 +3,7 @@ layout: post
 title: "Markdown: Syntax"
 date: 2013-05-06 16:28
 comments: true
-categories: 其它
+categories: 其他
 ---
 
 **NOTE:** This is Traditional Chinese Edition Document of
