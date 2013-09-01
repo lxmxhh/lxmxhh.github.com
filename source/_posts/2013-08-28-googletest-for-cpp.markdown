@@ -29,11 +29,11 @@ googletest 是由 Google 公司发布，且遵循 New BSD License （可用作�
 
 googletest 中定义了如下的断言：  
 表 1： googletest 定义的断言（ Assert ）
-<table>
+<table class="table table-bordered table-striped table-condensed">
 	<tr>
-		<td>基本断言</td>
-		<td>二进制比较</td>
-		<td>字符串比较</td>
+		<th>基本断言</th>
+		<th>二进制比较</th>
+		<th>字符串比较</th>
 	</tr>
 	<tr>
 		<td>ASSERT_TRUE(condition); condition为真</td>
@@ -206,11 +206,12 @@ googletest 中定义了如下的断言：
 </code>
 最后，将所有测试代码及 `Main.cpp` 编译并链接到目标程序中。  
 此外，在运行可执行目标程序时，可以使用 `--gtest_filter` 来指定要执行的测试用例，如：  
-+ `./foo_test` 没有指定 `filter` ，运行所有测试；
-+ `./foo_test --gtest_filter=*` 指定 `filter` 为 `*` ，运行所有测试；
-+ `./foo_test --gtest_filter=FooTest.*` 运行测试用例 `FooTest` 的所有测试；
-+ `./foo_test --gtest_filter=*Null*:*Constructor*` 运行所有全名（即测试用例名 + “ . ” + 测试名，如 `GlobalConfigurationTest.noConfigureFileTest` ）含有"Null" 或"Constructor" 的测试；
-+ `./foo_test --gtest_filter=FooTest.*-FooTest.Bar` 运行测试用例 `FooTest` 的所有测试，但不包括 `FooTest.Bar`。
+
+*   `./foo_test` 没有指定 `filter` ，运行所有测试；
+*   `./foo_test --gtest_filter=*` 指定 `filter` 为 `*` ，运行所有测试；
+*   `./foo_test --gtest_filter=FooTest.*` 运行测试用例 `FooTest` 的所有测试；
+*   `./foo_test --gtest_filter=*Null*:*Constructor*` 运行所有全名（即测试用例名 + “ . ” + 测试名，如 `GlobalConfigurationTest.noConfigureFileTest` ）含有"Null" 或"Constructor" 的测试；
+*   `./foo_test --gtest_filter=FooTest.*-FooTest.Bar` 运行测试用例 `FooTest` 的所有测试，但不包括 `FooTest.Bar`。
 这一特性在包含大量测试用例的项目中会十分有用。
 ***
 关于 googletest 的更多信息，请访问其项目主页：[http://code.google.com/p/googletest/] [url1]
