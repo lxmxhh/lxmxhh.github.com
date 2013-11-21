@@ -9,7 +9,7 @@
   <meta name="author" content="Sam Xu">
 
   
-  <meta name="description" content="作为一个TDD的脑残粉，凡事都想测试先行。现在回归C++开发，顿时觉得各种不方便。特别是手头没有好用的单元测试框架，开发效率简直无法忍受，写好的代码重构起来也畏手畏脚。 ">
+  <meta name="description" content="在面向对象程序设计中，有时我们需要在运行时查询一个对象是否能作为某种多态类型使用。与Java的instanceof，以及C#的as、is运算符类似，C++提供了dynamic_cast函数用于动态转型。相比C风格的强制类型转换和C++ reinterpret_cast， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +68,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/13/dynamic-cast-in-c-plus-plus/">Understanding Dynamic_cast in C++</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-13T22:59:00+08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在面向对象程序设计中，有时我们需要在运行时查询一个对象是否能作为某种多态类型使用。与Java的instanceof，以及C#的as、is运算符类似，C++提供了<code>dynamic_cast</code>函数用于动态转型。相比C风格的强制类型转换和C++ <code>reinterpret_cast</code>，<code>dynamic_cast</code>提供了类型安全检查，是一种基于能力查询(Capability Query)的转换，所以在多态类型间进行转换更提倡采用<code>dynamic_cast</code>。本文主要介绍<code>dynamic_cast</code>的意义，用法和注意事项。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/13/dynamic-cast-in-c-plus-plus/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -469,53 +510,6 @@ Document. Please refer to <a href="http://daringfireball.net/projects/markdown/s
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/28/opn-principle/">项目管理的ONP原则</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-28T23:01:00+08:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="right" src="http://placekitten.com/240/320"></p>
-
-<p>前阵子学到了一招，项目管理中关于预估的ONP原则。</p>
-
-
-<p>顾名思义，O乐观估计，N普通估计，P悲观估计。</p>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/04/28/opn-principle/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -535,6 +529,10 @@ Document. Please refer to <a href="http://daringfireball.net/projects/markdown/s
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/13/dynamic-cast-in-c-plus-plus/">Understanding dynamic_cast in c++</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/28/googletest-for-cpp/">轻松编写 C++ 单元测试</a>
       </li>
     
@@ -548,10 +546,6 @@ Document. Please refer to <a href="http://daringfireball.net/projects/markdown/s
     
       <li class="post">
         <a href="/blog/2013/05/24/lizhiganxiang/">Last day</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/07/intent-and-intent-filter/">Intents and Intent filters</a>
       </li>
     
   </ul>

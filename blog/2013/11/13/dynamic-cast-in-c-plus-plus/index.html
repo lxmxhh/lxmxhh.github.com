@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>texture compression - SamXu's blog</title>
+  <title>Understanding dynamic_cast in c++ - SamXu's blog</title>
   <meta name="author" content="Sam Xu">
 
   
-  <meta name="description" content="Texture compression support Texture compression can significantly increase the performance of your OpenGL application by reducing memory requirements &hellip;">
+  <meta name="description" content="在面向对象程序设计中，有时我们需要在运行时查询一个对象是否能作为某种多态类型使用。与Java的instanceof，以及C#的as、is运算符类似，C++提供了dynamic_cast函数用于动态转型。相比C风格的强制类型转换和C++ reinterpret_cast， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://lxmxhh.github.io/blog/2013/06/10/texture-compression">
+  <link rel="canonical" href="http://lxmxhh.github.io/blog/2013/11/13/dynamic-cast-in-c-plus-plus">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="SamXu's blog" type="application/atom+xml">
@@ -71,7 +71,7 @@
   
   <header>
     
-      <h1 class="entry-title">Texture Compression</h1>
+      <h1 class="entry-title">Understanding Dynamic_cast in C++</h1>
     
     
       <p class="meta">
@@ -87,39 +87,101 @@
   
 
 
-<time datetime="2013-06-10T23:00:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2013</time>
+<time datetime="2013-11-13T22:59:00+08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Texture compression support</p>
+<div class="entry-content"><p>在面向对象程序设计中，有时我们需要在运行时查询一个对象是否能作为某种多态类型使用。与Java的instanceof，以及C#的as、is运算符类似，C++提供了<code>dynamic_cast</code>函数用于动态转型。相比C风格的强制类型转换和C++ <code>reinterpret_cast</code>，<code>dynamic_cast</code>提供了类型安全检查，是一种基于能力查询(Capability Query)的转换，所以在多态类型间进行转换更提倡采用<code>dynamic_cast</code>。本文主要介绍<code>dynamic_cast</code>的意义，用法和注意事项。</p>
 
-<p>Texture compression can significantly increase the performance of your OpenGL application by reducing memory requirements and making more efficient use of memory bandwidth. <!--more-->The Android framework provides support for the ETC1 compression format as a standard feature, including a ETC1Util utility class and the etc1tool compression tool (located in the Android SDK at <code>&lt;sdk&gt;/tools/</code>). For an example of an Android application that uses texture compression, see the CompressedTextureActivity code sample.</p>
+<!--more-->
 
-<p>The ETC format is supported by most Android devices, but it not guarranteed to be available. To check if the ETC1 format is supported on a device, call the <code>ETC1Util.isETC1Supported()</code> method.</p>
 
-<p>Note: The ETC1 texture compression format does not support textures with an alpha channel. If your application requires textures with an alpha channel, you should investigate other texture compression formats available on your target devices.</p>
+<p>
+基本用法</p>
 
-<p>Beyond the ETC1 format, Android devices have varied support for texture compression based on their GPU chipsets and OpenGL implementations. You should investigate texture compression support on the devices you are are targeting to determine what compression types your application should support. In order to determine what texture formats are supported on a given device, you must query the device and review the OpenGL extension names, which identify what texture compression formats (and other OpenGL features) are supported by the device. Some commonly supported texture compression formats are as follows:</p>
+<p>dynamic_cast可以获取目标对象的引用或指针：</p>
 
-<p>ATITC (ATC) - ATI texture compression (ATITC or ATC) is available on a wide variety of devices and supports fixed rate compression for RGB textures with and without an alpha channel. This format may be represented by several OpenGL extension names, for example:
-GL_AMD_compressed_ATC_texture<br/>
-GL_ATI_texture_compression_atitc<br/>
-PVRTC - PowerVR texture compression (PVRTC) is available on a wide variety of devices and supports 2-bit and 4-bit per pixel textures with or without an alpha channel. This format is represented by the following OpenGL extension name:<br/>
-GL_IMG_texture_compression_pvrtc<br/>
-S3TC (DXTn/DXTC) - S3 texture compression (S3TC) has several format variations (DXT1 to DXT5) and is less widely available. The format supports RGB textures with 4-bit alpha or 8-bit alpha channels. This format may be represented by several OpenGL extension names, for example:<br/>
-GL_OES_texture_compression_S3TC<br/>
-GL_EXT_texture_compression_s3tc<br/>
-GL_EXT_texture_compression_dxt1<br/>
-GL_EXT_texture_compression_dxt3<br/>
-GL_EXT_texture_compression_dxt5<br/>
-3DC - 3DC texture compression (3DC) is a less widely available format that supports RGB textures with an an alpha channel. This format is represented by the following OpenGL extension name:
-GL_AMD_compressed_3DC_texture<br/>
-Warning: These texture compression formats are not supported on all devices. Support for these formats can vary by manufacturer and device. For information on how to determine what texture compression formats are on a particular device, see the next section.</p>
+<pre><code>T1 obj;
+T2* pObj = dynamic_cast&lt;T2*&gt;(&amp;obj);     //转换为T2指针，失败返回NULL
+T2&amp; refObj = dynamic_cast&lt;T2&amp;&gt;(obj);    //转换为T2引用，失败抛出bad_cast异常
+</code></pre>
 
-<p>Note: Once you decide which texture compression formats your application will support, make sure you declare them in your manifest using <code>&lt;supports-gl-texture&gt;</code> . Using this declaration enables filtering by external services such as Google Play, so that your app is installed only on devices that support the formats your app requires. For details, see OpenGL manifest declarations.</p>
+<p>多态类型</p>
+
+<p>在使用时需要注意：被转换对象<code>obj</code>的类型<code>T1</code>必须是多态类型，即<code>T1</code>必须公有继承自其它类，或者<code>T1</code>拥有虚函数（继承或自定义）。若<code>T1</code>为非多态类型，使用<code>dynamic_cast</code>会报编译错误。下面的例子说明了哪些类属于多态类型，哪些类不是：</p>
+
+<pre><code>//A为非多态类型 
+class A{
+};
+
+//B为多态类型
+class B{ 
+    public: virtual ~B(){}
+};
+
+//D为多态类型
+class D: public A{
+};
+
+//E为非多态类型
+class E : private A{
+};
+
+//F为多态类型
+class F : private B{
+};
+</code></pre>
+
+<p>横向转型</p>
+
+<p>在多态类型间转换，分为3种类型：</p>
+
+<p>1.子类向基类的向上转型(Up Cast)</p>
+
+<p>2.基类向子类的向下转型(Down Cast)</p>
+
+<p>3.横向转型(Cross Cast)</p>
+
+<p>向上转型是多态的基础，需不要借助任何特殊的方法，只需用将子类的指针或引用赋给基类的指针或引用即可，当然<code>dynamic_cast</code>也支持向上转型，而其总是肯定成功的。而对于向下转型和横向转型来讲，其实对于<code>dynamic_cast</code>并没有任何区别，它们都属于能力查询。为了理解方便，我们不妨把<code>dynamic_cast</code>视为cross cast：</p>
+
+<pre><code>class Shape {
+    public: virtual ~Shape();
+    virtual void draw() const = 0;
+};
+
+class Rollable {
+    public: virtual ~Rollable();
+    virtual void roll() = 0;
+};
+
+class Circle : public Shape, public Rollable {
+    void draw() const;
+    void roll();
+};
+
+class Square : public Shape {
+    void draw() const;
+};
+
+//横向转型失败
+Shape *pShape1 = new Square();
+Rollable *pRollable1 = dynamic_cast&lt;Rollable*&gt;(pShape2);//pRollable为NULL
+
+//横向转型成功
+Shape *pShape2 = new Circle();
+Rollable *pRollable2 = dynamic_cast&lt;Rollable*&gt;(pShape2);//pRollable不为NULL
+</code></pre>
+
+<p>指针比较</p>
+
+<p>接上面的例子，在我的机器上<code>pShape2</code>和<code>pRollable2</code>的值（所指向的地址）分别为：
+<code>pShape2: 0x0039A294</code>, <code>pRollable2:0x0039A290</code></p>
+
+<p>说明<code>dynamic_cast</code>在进行转型的时候对不同多态类型设置了不同的偏移量。接下来的问题是
+<code>pRollable2 == pShape2</code></p>
 </div>
 
 
@@ -142,12 +204,12 @@ Warning: These texture compression formats are not supported on all devices. Sup
   
 
 
-<time datetime="2013-06-10T23:00:00+08:00" pubdate data-updated="true">Jun 10<span>th</span>, 2013</time>
+<time datetime="2013-11-13T22:59:00+08:00" pubdate data-updated="true">Nov 13<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/tu-xing-bian-cheng/'>图形编程</a>
+    <a class='category' href='/blog/categories/c-plus-plus/'>C++</a>, <a class='category' href='/blog/categories/dev/'>dev</a>
   
 </span>
 
@@ -163,10 +225,8 @@ Warning: These texture compression formats are not supported on all devices. Sup
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/05/24/lizhiganxiang/" title="Previous Post: Last day">&laquo; Last day</a>
+        <a class="basic-alignment left" href="/blog/2013/08/28/googletest-for-cpp/" title="Previous Post: 轻松编写 C++ 单元测试">&laquo; 轻松编写 C++ 单元测试</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/07/17/agile-development-process/" title="Next Post: 敏捷开发过程剖析及工具推荐">敏捷开发过程剖析及工具推荐 &raquo;</a>
       
     </p>
   </footer>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: C++ | SamXu's blog]]></title>
   <link href="http://lxmxhh.github.io/blog/categories/c-plus-plus/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
-  <updated>2013-09-01T23:07:35+08:00</updated>
+  <updated>2013-11-21T23:47:08+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
   <author>
     <name><![CDATA[Sam Xu]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Understanding dynamic_cast in c++]]></title>
+    <link href="http://lxmxhh.github.io/blog/2013/11/13/dynamic-cast-in-c-plus-plus/"/>
+    <updated>2013-11-13T22:59:00+08:00</updated>
+    <id>http://lxmxhh.github.io/blog/2013/11/13/dynamic-cast-in-c-plus-plus</id>
+    <content type="html"><![CDATA[<p>在面向对象程序设计中，有时我们需要在运行时查询一个对象是否能作为某种多态类型使用。与Java的instanceof，以及C#的as、is运算符类似，C++提供了<code>dynamic_cast</code>函数用于动态转型。相比C风格的强制类型转换和C++ <code>reinterpret_cast</code>，<code>dynamic_cast</code>提供了类型安全检查，是一种基于能力查询(Capability Query)的转换，所以在多态类型间进行转换更提倡采用<code>dynamic_cast</code>。本文主要介绍<code>dynamic_cast</code>的意义，用法和注意事项。</p>
+
+<!--more-->
+
+
+<p>
+基本用法</p>
+
+<p>dynamic_cast可以获取目标对象的引用或指针：</p>
+
+<pre><code>T1 obj;
+T2* pObj = dynamic_cast&lt;T2*&gt;(&amp;obj);     //转换为T2指针，失败返回NULL
+T2&amp; refObj = dynamic_cast&lt;T2&amp;&gt;(obj);    //转换为T2引用，失败抛出bad_cast异常
+</code></pre>
+
+<p>多态类型</p>
+
+<p>在使用时需要注意：被转换对象<code>obj</code>的类型<code>T1</code>必须是多态类型，即<code>T1</code>必须公有继承自其它类，或者<code>T1</code>拥有虚函数（继承或自定义）。若<code>T1</code>为非多态类型，使用<code>dynamic_cast</code>会报编译错误。下面的例子说明了哪些类属于多态类型，哪些类不是：</p>
+
+<pre><code>//A为非多态类型 
+class A{
+};
+
+//B为多态类型
+class B{ 
+    public: virtual ~B(){}
+};
+
+//D为多态类型
+class D: public A{
+};
+
+//E为非多态类型
+class E : private A{
+};
+
+//F为多态类型
+class F : private B{
+};
+</code></pre>
+
+<p>横向转型</p>
+
+<p>在多态类型间转换，分为3种类型：</p>
+
+<p>1.子类向基类的向上转型(Up Cast)</p>
+
+<p>2.基类向子类的向下转型(Down Cast)</p>
+
+<p>3.横向转型(Cross Cast)</p>
+
+<p>向上转型是多态的基础，需不要借助任何特殊的方法，只需用将子类的指针或引用赋给基类的指针或引用即可，当然<code>dynamic_cast</code>也支持向上转型，而其总是肯定成功的。而对于向下转型和横向转型来讲，其实对于<code>dynamic_cast</code>并没有任何区别，它们都属于能力查询。为了理解方便，我们不妨把<code>dynamic_cast</code>视为cross cast：</p>
+
+<pre><code>class Shape {
+    public: virtual ~Shape();
+    virtual void draw() const = 0;
+};
+
+class Rollable {
+    public: virtual ~Rollable();
+    virtual void roll() = 0;
+};
+
+class Circle : public Shape, public Rollable {
+    void draw() const;
+    void roll();
+};
+
+class Square : public Shape {
+    void draw() const;
+};
+
+//横向转型失败
+Shape *pShape1 = new Square();
+Rollable *pRollable1 = dynamic_cast&lt;Rollable*&gt;(pShape2);//pRollable为NULL
+
+//横向转型成功
+Shape *pShape2 = new Circle();
+Rollable *pRollable2 = dynamic_cast&lt;Rollable*&gt;(pShape2);//pRollable不为NULL
+</code></pre>
+
+<p>指针比较</p>
+
+<p>接上面的例子，在我的机器上<code>pShape2</code>和<code>pRollable2</code>的值（所指向的地址）分别为：
+<code>pShape2: 0x0039A294</code>, <code>pRollable2:0x0039A290</code></p>
+
+<p>说明<code>dynamic_cast</code>在进行转型的时候对不同多态类型设置了不同的偏移量。接下来的问题是
+<code>pRollable2 == pShape2</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[轻松编写 C++ 单元测试]]></title>
