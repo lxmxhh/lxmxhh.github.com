@@ -9,7 +9,9 @@
   <meta name="author" content="Sam Xu">
 
   
-  <meta name="description" content=" 前阵子学到了一招，项目管理中关于预估的ONP原则。 顾名思义，O乐观估计，N普通估计，P悲观估计。 ">
+  <meta name="description" content="今天来比较一下众多排序算法。 1 快速排序（QuickSort） 快速排序是一个就地排序，分而治之，大规模递归的算法。从本质上来说，它是归并排序的就地版本。快速排序可以由下面四步组成。 1. 如果不多于1个数据，直接返回。
+2. 一般选择序列最左边的值作为支点数据。
+3. 将序列分成2部分， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +70,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/29/sorting-algorithms/">排序算法比较</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-29T22:41:00+08:00" pubdate data-updated="true">Apr 29<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://placekitten.com/640/320"></p>
+
+<p>今天来比较一下众多排序算法。</p>
+
+<p>1 快速排序（QuickSort）</p>
+
+<p>快速排序是一个就地排序，分而治之，大规模递归的算法。从本质上来说，它是归并排序的就地版本。快速排序可以由下面四步组成。</p>
+
+<pre><code>1. 如果不多于1个数据，直接返回。
+2. 一般选择序列最左边的值作为支点数据。
+3. 将序列分成2部分，一部分都大于支点数据，另外一部分都小于支点数据。
+4. 对两边利用递归排序数列。
+</code></pre>
+
+<p>快速排序比大部分排序算法都要快O(nlogn)。尽管我们可以在某些特殊的情况下写出比快速排序快的算法，但是就通常情况而言，没有比它更快的了。快速排序是递归的，对于内存非常有限的机器来说，它不是一个好的选择。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/04/29/sorting-algorithms/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -210,6 +267,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/12/31/2013-conclusion/">2013年度总结</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/11/13/dynamic-cast-in-c-plus-plus/">Understanding dynamic_cast in c++</a>
       </li>
     
@@ -223,10 +284,6 @@
     
       <li class="post">
         <a href="/blog/2013/06/10/texture-compression/">texture compression</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/24/lizhiganxiang/">Last day</a>
       </li>
     
   </ul>
