@@ -4,7 +4,7 @@
   <title><![CDATA[SamXu's blog]]></title>
   <link href="http://lxmxhh.github.io/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
-  <updated>2015-08-19T08:24:33+08:00</updated>
+  <updated>2015-08-19T08:29:27+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
   <author>
     <name><![CDATA[Sam Xu]]></name>
@@ -18,7 +18,8 @@
     <link href="http://lxmxhh.github.io/blog/2015/08/19/i-am-back/"/>
     <updated>2015-08-19T08:24:00+08:00</updated>
     <id>http://lxmxhh.github.io/blog/2015/08/19/i-am-back</id>
-    <content type="html"><![CDATA[<p>wuhahaha, i am back</p>
+    <content type="html"><![CDATA[<p>wuhahaha, i am back
+<img class="center" src="http://placekitten.com/512/128"></p>
 ]]></content>
   </entry>
   
