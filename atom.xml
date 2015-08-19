@@ -4,7 +4,7 @@
   <title><![CDATA[SamXu's blog]]></title>
   <link href="http://lxmxhh.github.io/atom.xml" rel="self"/>
   <link href="http://lxmxhh.github.io/"/>
-  <updated>2015-08-19T08:08:26+08:00</updated>
+  <updated>2015-08-19T08:24:33+08:00</updated>
   <id>http://lxmxhh.github.io/</id>
   <author>
     <name><![CDATA[Sam Xu]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[i am back]]></title>
+    <link href="http://lxmxhh.github.io/blog/2015/08/19/i-am-back/"/>
+    <updated>2015-08-19T08:24:00+08:00</updated>
+    <id>http://lxmxhh.github.io/blog/2015/08/19/i-am-back</id>
+    <content type="html"><![CDATA[<p>wuhahaha, i am back</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Swift学习]]></title>
