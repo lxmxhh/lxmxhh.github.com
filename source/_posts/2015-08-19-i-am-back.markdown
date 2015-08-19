@@ -6,3 +6,4 @@ comments: true
 categories: 
 ---
 wuhahaha, i am back
+{% img center http://placekitten.com/512/128 %} 
